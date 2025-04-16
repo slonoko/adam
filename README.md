@@ -22,6 +22,9 @@ Adam is a Python-based project that provides tools to retrieve weather reports a
     ```bash
     uv install
     ```
+    4. Set up the `.env` file:
+        - Rename `.env.sample` to `.env`
+        - Update the variables accordingly
 4. Run the application:
     - To run via web:
     ```bash
