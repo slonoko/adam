@@ -34,3 +34,7 @@ Adam is a Python-based project that provides tools to retrieve weather reports a
     ```bash
     adk run multi_tool_agent
     ```
+    - To run as a server:
+    ```bash
+    adk api_server
+    ```

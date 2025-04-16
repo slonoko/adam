@@ -1,7 +1,7 @@
-import datetime
-from zoneinfo import ZoneInfo
 from google.adk.agents import Agent
 import requests
+import datetime
+from zoneinfo import ZoneInfo
 
 def get_weather(city: str) -> dict:
     """Retrieves the current weather report for a specified city.
@@ -28,36 +28,19 @@ def get_weather(city: str) -> dict:
     except KeyError as e:
         return {"status": "error", "error_message": f"Unexpected response format: {e}"}
 
-def get_current_time(city: str) -> dict:
-    """Returns the current time in a specified city.
-
+def current_date_and_time(format:str="%A, %B %d, %Y %H:%M:%S", timezone: str="localtime") -> str:
+    """
+    A usefull function that takes as input the date and time format as optional parameter, the timezone with default to the system locale, and returns the current date and time.
     Args:
-        city (str): The name of the city for which to retrieve the current time.
+        format (str): The date and time format to be returned.
+        timezone (str): The timezone to be used. Default is "localtime".
 
     Returns:
-        dict: status and result or error msg.
+        str: the current date and time in the specified format and timezone.
     """
-    try:
-        url = f"https://nominatim.openstreetmap.org/search.php?q={city}&format=jsonv2"
-        response = requests.get(url, headers={"User-Agent": "Agent/007", "Connection": "keep-alive"})
-        response.raise_for_status()
-        location_data = response.json()
-        if not location_data:
-            return {"status": "error", "error_message": f"City '{city}' not found."}
-        lat = location_data[0]["lat"]
-        lon = location_data[0]["lon"]
 
-        time_url = f"https://timeapi.io/api/time/current/coordinate?latitude={lat}&longitude={lon}"
-        t_response = requests.get(time_url,headers={"User-Agent": "Agent/007", "Connection": "keep-alive"})
-        t_response.raise_for_status()
-        t_data = t_response.json()
-        now = t_data["dateTime"]
-        report = (
-            f'The current time in {city} is {now}'
-        )
-        return {"status": "success", "report": report}
-    except requests.RequestException as e:
-        return {"status": "error", "error_message": f"Failed to fetch timezone data: {e}"}
+    tz=ZoneInfo(timezone)
+    return datetime.datetime.now(tz).strftime(format)
 
 root_agent = Agent(
     name="weather_time_agent",
@@ -68,5 +51,5 @@ root_agent = Agent(
     instruction=(
         "I can answer your questions about the time and weather in a city."
     ),
-    tools=[get_weather, get_current_time],
+    tools=[get_weather, current_date_and_time],
 )
