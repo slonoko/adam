@@ -3,9 +3,10 @@ import requests
 import logging
 from dotenv import load_dotenv
 import os
+import sys
 
 load_dotenv()
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)", datefmt="%Y-%m-%d %H:%M:%S")
 
 headers = {
     "x-rapidapi-key": os.getenv("RAPIDAPI_KEY"),
