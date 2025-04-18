@@ -28,28 +28,14 @@ def get_weather(city: str) -> dict:
     except KeyError as e:
         return {"status": "error", "error_message": f"Unexpected response format: {e}"}
 
-def current_date_and_time(format:str="%A, %B %d, %Y %H:%M:%S", timezone: str="localtime") -> str:
-    """
-    A usefull function that takes as input the date and time format as optional parameter, the timezone with default to the system locale, and returns the current date and time.
-    Args:
-        format (str): The date and time format to be returned.
-        timezone (str): The timezone to be used. Default is "localtime".
-
-    Returns:
-        str: the current date and time in the specified format and timezone.
-    """
-
-    tz=ZoneInfo(timezone)
-    return datetime.datetime.now(tz).strftime(format)
-
 root_agent = Agent(
-    name="weather_time_agent",
+    name="weather_agent",
     model="gemini-2.0-flash-exp",
     description=(
-        "Agent to answer questions about the time and weather in a city."
+        "Agent to answer questions about the weather in a city."
     ),
     instruction=(
-        "I can answer your questions about the time and weather in a city."
+        "I can answer your questions about the weather in a city."
     ),
-    tools=[get_weather, current_date_and_time],
+    tools=[get_weather],
 )
