@@ -1,11 +1,6 @@
-# Adam: Weather and Time Agent
+# Adam: Trading broker agent
 
-Adam is a Python-based project that provides tools to retrieve weather reports and current time for a specified city. It uses external APIs to fetch real-time data and is designed to be easily extendable.
-
-## Features
-
-- **Weather Report**: Get the current temperature, weather description, and humidity for any city.
-- **Current Time**: Retrieve the current time in any city using its geographical coordinates.
+Adam is a versatile trading broker agent designed to assist users with various tasks, including retrieving weather reports and current time information for any city. It provides multiple modes of operation, such as web interface, command-line tools, and server functionality, making it adaptable to different use cases.
 
 ## Installation
 
