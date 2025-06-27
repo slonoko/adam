@@ -19,7 +19,7 @@ logging.basicConfig(
 
 root_agent = LlmAgent(
     name="stockbroker",
-    model="gemini-2.0-flash-exp",
+    model="gemini-2.5-flash-preview-04-17",
     description=(
         "EquiBot is an advanced AI-powered assistant designed to support or replace the functions of a traditional stockbroker."
         "Equipped with real-time data access, EquiBot provides timely insights, market analysis, and personalized financial recommendations."
@@ -38,5 +38,6 @@ root_agent = LlmAgent(
         get_monthly_data,
         get_quote,
         search_symbol,
+        get_news_and_sentiment,
     ],  # Tool to query memory
 )
