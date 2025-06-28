@@ -3,6 +3,7 @@ import logging
 from dotenv import load_dotenv
 import sys
 from tools.stocks_data import *
+from google.adk.models.lite_llm import LiteLlm
 
 load_dotenv()
 logging.basicConfig(

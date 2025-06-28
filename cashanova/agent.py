@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import sys
 from google.adk.tools import load_memory  # Tool to query memory
 from tools.exchange_rate import convert, get_exchange_rates
+from google.adk.models.lite_llm import LiteLlm
 
 load_dotenv()
 logging.basicConfig(
@@ -16,7 +17,7 @@ logging.basicConfig(
 
 root_agent = LlmAgent(
     name="Cashanova",
-    model="gemini-2.5-flash-preview-04-17",
+    model="gemini-2.5-flash-preview-04-17", # LiteLlm(model="ollama/gemma3n:latest")
     description=(
         "Smooth with the money 💸. "
         "Can retrieve exchange rates, and convert from one currency to another."

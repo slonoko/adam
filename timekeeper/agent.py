@@ -3,6 +3,7 @@ import logging
 from dotenv import load_dotenv
 import sys
 from tools.datetime import current_date_and_time
+from google.adk.models.lite_llm import LiteLlm
 
 load_dotenv()
 logging.basicConfig(

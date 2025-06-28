@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import sys
 from google.adk.tools import load_memory  # Tool to query memory
 from tools.weather import get_current_weather, get_weather_forecast
+from google.adk.models.lite_llm import LiteLlm
 
 load_dotenv()
 logging.basicConfig(

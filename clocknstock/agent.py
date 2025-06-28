@@ -20,7 +20,7 @@ logging.basicConfig(
 
 root_agent = LlmAgent(
     name="ClocknStock",
-    model=LiteLlm(model="ollama/gemma3:latest"), # "gemini-2.5-flash-preview-04-17",
+    model="gemini-2.5-flash-preview-04-17", # LiteLlm(model="ollama/gemma3:latest")
     description=(
         "Clock & Stock – Ticking time, trading tips, and thunderous weather 🌤️⏰. "
         "Your all-in-one assistant, I coordinate with specialized agents to provide "
