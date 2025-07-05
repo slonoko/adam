@@ -24,5 +24,5 @@ root_agent = LlmAgent(
         "Smooth with the money 💸. "
         "Can retrieve exchange rates, and convert from one currency to another."
     ),
-    tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/cashanova/sse"), tool_filter=["get_exchange_rate","convert_currency"])],
+    tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/cashanova/sse"))],
 )

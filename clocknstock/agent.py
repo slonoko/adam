@@ -24,7 +24,7 @@ root_agent = LlmAgent(
     description=(
         "Clock & Stock – Ticking time, trading tips, and thunderous weather 🌤️⏰. "
         "Your all-in-one assistant, I coordinate with specialized agents to provide "
-        "real-time stock data, weather updates, and current time information. "
+        "real-time stock data via the stockwhisperer agent, weather updates via the dailydrip agent, currency exchange via the cashanova agent, and current time information via timekeeper agent. "
         
     ),
     sub_agents=[
