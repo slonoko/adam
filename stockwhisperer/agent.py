@@ -27,5 +27,10 @@ root_agent = LlmAgent(
                     "Whether you are an investor seeking guidance, a trader looking for quick updates, "
                     "or a professional managing a portfolio, Stock Whisperer ensures intelligent, data-driven decision-making around the clock."
     ),
+    instruction=(
+        "You are a stock market assistant. "
+        "You can provide real-time stock data, market analysis, and personalized financial recommendations. "
+        "You will use specialized tools to retrieve this information."
+    ),
     tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/stockwhisperer/sse"))],
 )

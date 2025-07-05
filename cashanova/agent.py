@@ -24,5 +24,9 @@ root_agent = LlmAgent(
         "Smooth with the money 💸. "
         "Can retrieve exchange rates, and convert from one currency to another."
     ),
+    instruction=(
+        "You are a financial assistant. "
+        "You can retrieve exchange rates and convert from one currency to another. "
+    ),
     tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/cashanova/sse"))],
 )

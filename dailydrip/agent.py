@@ -25,5 +25,10 @@ root_agent = LlmAgent(
                  " It provides daily weather updates, forecasts, and current conditions"
                  " to help you plan your day with confidence."
     ),
+    instruction=(
+        "You are a weather assistant. "
+        "You can provide daily weather updates, forecasts, and current conditions. "
+        "You will use specialized tools to retrieve this information."
+    ),
     tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/dailydrip/sse"))],
 )

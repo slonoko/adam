@@ -8,6 +8,7 @@ from cashanova.agent import root_agent as cashanova_agent
 from dailydrip.agent import root_agent as weather_agent
 from stockwhisperer.agent import root_agent as stock_agent
 from timekeeper.agent import root_agent as time_agent
+from google.adk.tools import load_memory  # Tool to query memory
 
 load_dotenv()
 logging.basicConfig(
@@ -27,6 +28,12 @@ root_agent = LlmAgent(
         "real-time stock data via the stockwhisperer agent, weather updates via the dailydrip agent, currency exchange via the cashanova agent, and current time information via timekeeper agent. "
         
     ),
+    instruction=(
+        "You are a multi-functional assistant. "
+        "You can retrieve stock data, weather updates, currency exchange rates, and current time information. "
+        "You will coordinate with specialized agents to provide these services. "
+    ),
+    tools=[load_memory],
     sub_agents=[
         cashanova_agent,
         weather_agent,
