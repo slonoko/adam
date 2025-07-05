@@ -20,7 +20,14 @@ Adam is a versatile trading broker agent designed to assist users with various t
     4. Set up the `.env` file:
         - Rename `.env.sample` to `.env`
         - Update the variables accordingly
-4. Run the application:
+
+4. Run the MCP Servers:
+    - Run the command: 
+    ```bash 
+    uv run serv.py
+    ``` 
+
+5. Run the application:
     - To run via web:
     ```bash
     adk web

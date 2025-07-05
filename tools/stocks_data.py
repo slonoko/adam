@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 BASE_URL = "https://www.alphavantage.co/query"
-API_KEY = os.getenv("AV_KEY")
+API_KEY = os.getenv("ALPHAVANTAGE_KEY")
 if not API_KEY:
     raise ValueError(
-        "API key for Alpha Vantage is not set. Please set the AV_KEY environment variable."
+        "API key for Alpha Vantage is not set. Please set the ALPHAVANTAGE_KEY environment variable."
     )
 
 
