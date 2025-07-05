@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 import sys
 from tools.stocks_data import *
 from google.adk.models.lite_llm import LiteLlm
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
 
 load_dotenv()
 logging.basicConfig(
@@ -25,13 +27,5 @@ root_agent = LlmAgent(
                     "Whether you are an investor seeking guidance, a trader looking for quick updates, "
                     "or a professional managing a portfolio, Stock Whisperer ensures intelligent, data-driven decision-making around the clock."
     ),
-    tools=[
-        get_intraday_data,
-        get_daily_data,
-        get_weekly_data,
-        get_monthly_data,
-        get_quote,
-        search_symbol,
-        get_news_and_sentiment,
-    ],  # Tool to query memory
+    tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/stockwhisperer/sse"))],
 )

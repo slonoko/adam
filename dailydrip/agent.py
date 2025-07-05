@@ -5,6 +5,8 @@ import sys
 from google.adk.tools import load_memory  # Tool to query memory
 from tools.weather import get_current_weather, get_weather_forecast
 from google.adk.models.lite_llm import LiteLlm
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
 
 load_dotenv()
 logging.basicConfig(
@@ -23,8 +25,5 @@ root_agent = LlmAgent(
                  " It provides daily weather updates, forecasts, and current conditions"
                  " to help you plan your day with confidence."
     ),
-    tools=[
-        get_current_weather,
-        get_weather_forecast,
-    ],  # Tool to query memory
+    tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/dailydrip/sse"))],
 )

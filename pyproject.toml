@@ -9,5 +9,7 @@ dependencies = [
     "google-adk>=0.1.0",
     "google-genai>=1.10.0",
     "litellm>=1.73.2",
+    "mcp[cli]>=1.6.0",
     "requests>=2.32.3",
+    "starlette>=0.46.2",
 ]

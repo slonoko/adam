@@ -1,6 +1,8 @@
 import requests
 import os
+from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
+# Create an MCP server
 
 load_dotenv()
 BASE_URL = "https://www.alphavantage.co/query"
@@ -17,7 +19,9 @@ def _make_request(params):
     response.raise_for_status()
     return response.json()
 
+mcp = FastMCP("stockwhisperer")   
 
+@mcp.tool()
 def get_intraday_data(
     symbol: str, interval: str = "1min", output_size: str = "compact"
 ):
@@ -36,7 +40,7 @@ def get_intraday_data(
     }
     return _make_request(params)
 
-
+@mcp.tool()
 def get_daily_data(symbol: str, output_size: str = "compact"):
     """
     Fetch daily stock data.
@@ -51,7 +55,7 @@ def get_daily_data(symbol: str, output_size: str = "compact"):
     }
     return _make_request(params)
 
-
+@mcp.tool()
 def get_weekly_data(symbol: str):
     """
     Fetch weekly stock data.
@@ -61,7 +65,7 @@ def get_weekly_data(symbol: str):
     params = {"function": "TIME_SERIES_WEEKLY", "symbol": symbol}
     return _make_request(params)
 
-
+@mcp.tool()
 def get_monthly_data(symbol: str):
     """
     Fetch monthly stock data.
@@ -71,7 +75,7 @@ def get_monthly_data(symbol: str):
     params = {"function": "TIME_SERIES_MONTHLY", "symbol": symbol}
     return _make_request(params)
 
-
+@mcp.tool()
 def get_quote(symbol: str):
     """
     Fetch real-time stock quote.
@@ -81,7 +85,7 @@ def get_quote(symbol: str):
     params = {"function": "GLOBAL_QUOTE", "symbol": symbol}
     return _make_request(params)
 
-
+@mcp.tool()
 def search_symbol(keywords: str):
     """
     Search for stock symbols based on keywords.
@@ -91,7 +95,7 @@ def search_symbol(keywords: str):
     params = {"function": "SYMBOL_SEARCH", "keywords": keywords}
     return _make_request(params)
 
-
+@mcp.tool()
 def get_news_and_sentiment(
     tickers: str = "",
     time_from: str = "",

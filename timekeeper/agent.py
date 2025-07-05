@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 import sys
 from tools.datetime import current_date_and_time
 from google.adk.models.lite_llm import LiteLlm
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
 
 load_dotenv()
 logging.basicConfig(
@@ -22,7 +24,5 @@ root_agent = LlmAgent(
                  "and can help you manage your schedule and reminders."
                  
     ),
-    tools=[
-        current_date_and_time,
-    ],  # Tool to query memory
+    tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/timekeeper/sse"))],
 )

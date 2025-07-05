@@ -2,7 +2,11 @@ from google.adk.agents import Agent
 import requests
 import datetime
 from zoneinfo import ZoneInfo
+from mcp.server.fastmcp import FastMCP
 
+mcp = FastMCP("stockwhisperer")   
+
+@mcp.tool()
 def get_current_weather(city: str) -> dict:
     """Retrieves the current weather report for a specified city.
 
@@ -14,6 +18,7 @@ def get_current_weather(city: str) -> dict:
     """
     return get_weather_forecast(city, datetime.datetime.now(ZoneInfo("UTC")).strftime("%Y-%m-%d"))
 
+@mcp.tool()
 def get_weather_forecast(city: str, date: str) -> dict:
     """Retrieves the weather report for a specified city and specific day.
 
