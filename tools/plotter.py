@@ -3,7 +3,7 @@ import plotly.express as px
 import io
 import base64
 from typing import List, Optional, Union, Dict, Any
-from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP, Image
 
 mcp = FastMCP("plotter")
 
@@ -18,7 +18,7 @@ def plot_chart(
     color: str = "blue",
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
     Create a chart using Plotly and return it as a base64-encoded PNG image.
     This is the main plotting function that takes x and y values along with labels.
@@ -32,7 +32,7 @@ def plot_chart(
     :param color: Color of the chart elements (default: blue).
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     if len(x_values) != len(y_values):
         raise ValueError("x_values and y_values must have the same length")
@@ -78,10 +78,7 @@ def plot_chart(
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
     
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_line_chart(
@@ -93,10 +90,10 @@ def create_line_chart(
     line_color: str = "blue",
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
-    Create a line chart using Plotly and return it as a base64-encoded PNG image.
-    
+    Create a line chart using Plotly and return it as a PNG image.
+
     :param x_values: List of x-axis values (strings, integers, or floats).
     :param y_values: List of y-axis values (integers or floats).
     :param title: Title of the chart.
@@ -105,7 +102,7 @@ def create_line_chart(
     :param line_color: Color of the line (default: blue).
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     if len(x_values) != len(y_values):
         raise ValueError("x_values and y_values must have the same length")
@@ -131,11 +128,8 @@ def create_line_chart(
     
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
-    
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_bar_chart(
@@ -147,9 +141,9 @@ def create_bar_chart(
     bar_color: str = "blue",
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
-    Create a bar chart using Plotly and return it as a base64-encoded PNG image.
+    Create a bar chart using Plotly and return it as a PNG image.
     
     :param x_values: List of x-axis values (strings, integers, or floats).
     :param y_values: List of y-axis values (integers or floats).
@@ -159,7 +153,7 @@ def create_bar_chart(
     :param bar_color: Color of the bars (default: blue).
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     if len(x_values) != len(y_values):
         raise ValueError("x_values and y_values must have the same length")
@@ -184,11 +178,8 @@ def create_bar_chart(
     
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
-    
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_scatter_plot(
@@ -201,10 +192,10 @@ def create_scatter_plot(
     marker_size: int = 8,
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
-    Create a scatter plot using Plotly and return it as a base64-encoded PNG image.
-    
+    Create a scatter plot using Plotly and return it as a PNG image.
+
     :param x_values: List of x-axis values (integers or floats).
     :param y_values: List of y-axis values (integers or floats).
     :param title: Title of the chart.
@@ -214,7 +205,7 @@ def create_scatter_plot(
     :param marker_size: Size of the markers (default: 8).
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     if len(x_values) != len(y_values):
         raise ValueError("x_values and y_values must have the same length")
@@ -240,11 +231,8 @@ def create_scatter_plot(
     
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
-    
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_histogram(
@@ -256,10 +244,10 @@ def create_histogram(
     bar_color: str = "blue",
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
-    Create a histogram using Plotly and return it as a base64-encoded PNG image.
-    
+    Create a histogram using Plotly and return it as a PNG image.
+
     :param values: List of values to create histogram from.
     :param bins: Number of bins for the histogram (default: 20).
     :param title: Title of the chart.
@@ -268,7 +256,7 @@ def create_histogram(
     :param bar_color: Color of the bars (default: blue).
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     fig = go.Figure()
     
@@ -290,11 +278,8 @@ def create_histogram(
     
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
-    
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_pie_chart(
@@ -303,16 +288,16 @@ def create_pie_chart(
     title: str = "Pie Chart",
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
-    Create a pie chart using Plotly and return it as a base64-encoded PNG image.
-    
+    Create a pie chart using Plotly and return it as a PNG image.
+
     :param labels: List of labels for each slice.
     :param values: List of values for each slice.
     :param title: Title of the chart.
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     if len(labels) != len(values):
         raise ValueError("labels and values must have the same length")
@@ -334,11 +319,8 @@ def create_pie_chart(
     
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
-    
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_multi_line_chart(
@@ -349,10 +331,10 @@ def create_multi_line_chart(
     y_label: str = "Y-axis",
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
-    Create a multi-line chart using Plotly and return it as a base64-encoded PNG image.
-    
+    Create a multi-line chart using Plotly and return it as a PNG image.
+
     :param x_values: List of x-axis values (strings, integers, or floats).
     :param y_series: Dictionary where keys are series names and values are lists of y-values.
     :param title: Title of the chart.
@@ -360,7 +342,7 @@ def create_multi_line_chart(
     :param y_label: Label for the y-axis.
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     fig = go.Figure()
     
@@ -386,11 +368,8 @@ def create_multi_line_chart(
     
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
-    
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_candlestick_chart(
@@ -402,10 +381,10 @@ def create_candlestick_chart(
     title: str = "Candlestick Chart",
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
-    Create a candlestick chart using Plotly and return it as a base64-encoded PNG image.
-    
+    Create a candlestick chart using Plotly and return it as a PNG image.
+
     :param dates: List of date strings.
     :param open_prices: List of opening prices.
     :param high_prices: List of high prices.
@@ -414,7 +393,7 @@ def create_candlestick_chart(
     :param title: Title of the chart.
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     if not all(len(dates) == len(prices) for prices in [open_prices, high_prices, low_prices, close_prices]):
         raise ValueError("All price lists must have the same length as dates")
@@ -443,10 +422,7 @@ def create_candlestick_chart(
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
     
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_heatmap(
@@ -457,10 +433,10 @@ def create_heatmap(
     colorscale: str = "Viridis",
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
-    Create a heatmap using Plotly and return it as a base64-encoded PNG image.
-    
+    Create a heatmap using Plotly and return it as a PNG image.
+
     :param z_values: 2D list of values for the heatmap.
     :param x_labels: Optional list of x-axis labels.
     :param y_labels: Optional list of y-axis labels.
@@ -468,7 +444,7 @@ def create_heatmap(
     :param colorscale: Color scale for the heatmap (default: Viridis).
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     fig = go.Figure()
     
@@ -490,10 +466,7 @@ def create_heatmap(
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
     
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_box_plot(
@@ -503,17 +476,17 @@ def create_box_plot(
     box_color: str = "blue",
     width: int = 800,
     height: int = 600
-) -> str:
+) -> Image:
     """
-    Create a box plot using Plotly and return it as a base64-encoded PNG image.
-    
+    Create a box plot using Plotly and return it as a PNG image.
+
     :param values: List of values for the box plot.
     :param title: Title of the chart.
     :param y_label: Label for the y-axis.
     :param box_color: Color of the box (default: blue).
     :param width: Width of the chart in pixels (default: 800).
     :param height: Height of the chart in pixels (default: 600).
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     fig = go.Figure()
     
@@ -533,11 +506,8 @@ def create_box_plot(
     
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
-    
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+
+    return Image(data=img_bytes, format="png")
 
 @mcp.tool()
 def create_custom_chart(
@@ -552,10 +522,10 @@ def create_custom_chart(
     height: int = 600,
     show_markers: bool = True,
     marker_size: int = 8
-) -> str:
+) -> Image:
     """
-    Create a customizable chart using Plotly and return it as a base64-encoded PNG image.
-    
+    Create a customizable chart using Plotly and return it as a PNG image.
+
     :param x_values: List of x-axis values (strings, integers, or floats).
     :param y_values: List of y-axis values (integers or floats).
     :param chart_type: Type of chart ('line', 'bar', 'scatter').
@@ -567,7 +537,7 @@ def create_custom_chart(
     :param height: Height of the chart in pixels (default: 600).
     :param show_markers: Whether to show markers on line charts.
     :param marker_size: Size of markers.
-    :return: Base64-encoded PNG image string.
+    :return: PNG image.
     """
     if len(x_values) != len(y_values):
         raise ValueError("x_values and y_values must have the same length")
@@ -613,8 +583,5 @@ def create_custom_chart(
     
     # Convert to PNG image
     img_bytes = fig.to_image(format="png", width=width, height=height)
-    
-    # Encode as base64
-    img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-    
-    return img_base64
+
+    return Image(data=img_bytes, format="png")
