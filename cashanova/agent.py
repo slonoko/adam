@@ -7,6 +7,7 @@ from tools.exchange_rate import convert, get_exchange_rates
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
+import os
 
 load_dotenv()
 logging.basicConfig(
@@ -16,10 +17,11 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+logging.debug("Cashanova agent initialized with model: %s", os.getenv("MODEL_NAME", ""))
 
 root_agent = LlmAgent(
     name="Cashanova",
-    model="gemini-2.5-flash-preview-04-17", # LiteLlm(model="ollama/gemma3n:latest")
+    model=os.getenv("MODEL_NAME", ""), # LiteLlm(model="ollama/gemma3n:latest")
     description=(
         "Smooth with the money 💸. "
         "Can retrieve exchange rates, and convert from one currency to another."

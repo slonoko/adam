@@ -6,7 +6,7 @@ from tools.stocks_data import *
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
-
+import os
 load_dotenv()
 logging.basicConfig(
     stream=sys.stdout,
@@ -18,7 +18,7 @@ logging.basicConfig(
 
 root_agent = LlmAgent(
     name="StockWhisperer",
-    model="gemini-2.5-flash-preview-04-17",
+    model=os.getenv("MODEL_NAME", ""),
     description=("The Stock Whisperer – Speaks fluent bull and bear 🐂🐻. "
                     "An AI-powered stockbroker that provides real-time data access, "
                     "market analysis, and personalized financial recommendations. "

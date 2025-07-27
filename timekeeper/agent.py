@@ -6,7 +6,7 @@ from tools.datetime import current_date_and_time
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
-
+import os
 load_dotenv()
 logging.basicConfig(
     stream=sys.stdout,
@@ -18,7 +18,7 @@ logging.basicConfig(
 
 root_agent = LlmAgent(
     name="Timekeeper",
-    model="gemini-2.5-flash-preview-04-17",
+    model=os.getenv("MODEL_NAME", ""),
     description=("The Timekeeper – Your personal assistant for time 🌤️⏰. "
                  "It provides current date and time information, "
                  "and can help you manage your schedule and reminders."

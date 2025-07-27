@@ -7,6 +7,7 @@ from tools.weather import get_current_weather, get_weather_forecast
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
+import os
 
 load_dotenv()
 logging.basicConfig(
@@ -19,7 +20,7 @@ logging.basicConfig(
 
 root_agent = LlmAgent(
     name="DailyDrip",
-    model="gemini-2.5-flash-preview-04-17",
+    model=os.getenv("MODEL_NAME", ""),
     description=("The Daily Drip – For that slow, steady weather tea"
                  " that keeps you informed and ready for the day ahead."
                  " It provides daily weather updates, forecasts, and current conditions"

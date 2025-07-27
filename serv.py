@@ -7,6 +7,9 @@ from tools.datetime import mcp as datetime_mcp
 from tools.stocks_data import mcp as stocks_data_mcp
 from tools.weather import mcp as weather_mcp
 import sys
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logging.basicConfig(
     stream=sys.stdout,
