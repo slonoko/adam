@@ -8,6 +8,7 @@ from cashanova.agent import root_agent as cashanova_agent
 from dailydrip.agent import root_agent as weather_agent
 from stockwhisperer.agent import root_agent as stock_agent
 from timekeeper.agent import root_agent as time_agent
+from drawer.agent import root_agent as drawer_agent
 from google.adk.tools import load_memory  # Tool to query memory
 import os
 load_dotenv()
@@ -39,6 +40,7 @@ root_agent = LlmAgent(
         cashanova_agent,
         weather_agent,
         stock_agent,
-        time_agent 
+        time_agent,
+        drawer_agent
     ]
 )

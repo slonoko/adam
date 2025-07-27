@@ -6,6 +6,7 @@ from tools.exchange_rate import mcp as cashanova_mcp
 from tools.datetime import mcp as datetime_mcp
 from tools.stocks_data import mcp as stocks_data_mcp
 from tools.weather import mcp as weather_mcp
+from tools.plotter import mcp as plotter_mcp
 import sys
 from dotenv import load_dotenv
 
@@ -25,6 +26,7 @@ app = Starlette(
         Mount("/timekeeper", app=datetime_mcp.sse_app()),
         Mount("/stockwhisperer", app=stocks_data_mcp.sse_app()),
         Mount("/dailydrip", app=weather_mcp.sse_app()),
+        Mount("/plotter", app=plotter_mcp.sse_app()),
     ],
 )
 
