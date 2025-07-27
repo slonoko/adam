@@ -392,3 +392,1337 @@ def ipo_calendar():
     }
     return _make_request(params)
 
+# Technical Indicators - Moving Averages
+@mcp.tool()
+def sma(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None):
+    """
+    Simple Moving Average (SMA)
+    
+    This API returns the simple moving average (SMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "SMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def ema(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None):
+    """
+    Exponential Moving Average (EMA)
+    
+    This API returns the exponential moving average (EMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "EMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def wma(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None):
+    """
+    Weighted Moving Average (WMA)
+    
+    This API returns the weighted moving average (WMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "WMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def dema(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None):
+    """
+    Double Exponential Moving Average (DEMA)
+    
+    This API returns the double exponential moving average (DEMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "DEMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def tema(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None):
+    """
+    Triple Exponential Moving Average (TEMA)
+    
+    This API returns the triple exponential moving average (TEMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "TEMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def trima(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None):
+    """
+    Triangular Moving Average (TRIMA)
+    
+    This API returns the triangular moving average (TRIMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "TRIMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def kama(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None):
+    """
+    Kaufman Adaptive Moving Average (KAMA)
+    
+    This API returns the Kaufman adaptive moving average (KAMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "KAMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def mama(symbol: str, interval: str, series_type: str, fastlimit: float = 0.01, slowlimit: float = 0.01, month: Optional[str] = None):
+    """
+    MESA Adaptive Moving Average (MAMA)
+    
+    This API returns the MESA adaptive moving average (MAMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastlimit: Fast limit parameter. Default is 0.01.
+    :param slowlimit: Slow limit parameter. Default is 0.01.
+    :return: JSON response.
+    """
+    params = {
+        "function": "MAMA",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "fastlimit": fastlimit,
+        "slowlimit": slowlimit
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def vwap(symbol: str, interval: str, month: Optional[str] = None):
+    """
+    Volume Weighted Average Price (VWAP) - Premium
+
+    This API returns the volume weighted average price (VWAP) for intraday time series.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Intraday interval ('1min', '5min', '15min', '30min', '60min').
+    :param month: Optional month in YYYY-MM format for specific month.
+    :return: JSON response.
+    """
+    params = {
+        "function": "VWAP",
+        "symbol": symbol,
+        "interval": interval
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def t3(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None):
+    """
+    Triple Exponential Moving Average (T3)
+
+    This API returns the triple exponential moving average (T3) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "T3",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+# Technical Indicators - Momentum & Oscillators
+@mcp.tool()
+def macd(symbol: str, interval: str, series_type: str, fastperiod: int = 12, slowperiod: int = 26, signalperiod: int = 9, month: Optional[str] = None):
+    """
+    Moving Average Convergence / Divergence (MACD)
+    
+    This API returns the moving average convergence / divergence (MACD) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param fastperiod: Fast period (default 12).
+    :param slowperiod: Slow period (default 26).
+    :param signalperiod: Signal period (default 9).
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "MACD",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "fastperiod": fastperiod,
+        "slowperiod": slowperiod,
+        "signalperiod": signalperiod
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def macdext(symbol: str, interval: str, series_type: str, fastperiod: int = 12, slowperiod: int = 26, signalperiod: int = 9, fastmatype: int = 0, slowmatype: int = 0, signalmatype: int = 0, month: Optional[str] = None):
+    """
+    MACD with Controllable MA Type (MACDEXT)
+
+    This API returns the MACD values with controllable moving average type.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastperiod: Fast period parameter. Default is 12.
+    :param slowperiod: Slow period parameter. Default is 26.
+    :param signalperiod: Signal period parameter. Default is 9.
+    :param fastmatype: Fast MA type (0=SMA, 1=EMA, 2=WMA, 3=DEMA, 4=TEMA, 5=TRIMA, 6=KAMA, 7=MAMA, 8=T3). Default is 0.
+    :param slowmatype: Slow MA type. Default is 0.
+    :param signalmatype: Signal MA type. Default is 0.
+    :return: JSON response.
+    """
+    params = {
+        "function": "MACDEXT",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "fastperiod": fastperiod,
+        "slowperiod": slowperiod,
+        "signalperiod": signalperiod,
+        "fastmatype": fastmatype,
+        "slowmatype": slowmatype,
+        "signalmatype": signalmatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def stoch(symbol: str, interval: str, month: Optional[str] = None, fastkperiod: int = 5, slowkperiod: int = 3, slowdperiod: int = 3, slowkmatype: int = 0, slowdmatype: int = 0):
+    """
+    Stochastic Oscillator (STOCH)
+
+    This API returns the stochastic oscillator values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastkperiod: Fast K period. Default is 5.
+    :param slowkperiod: Slow K period. Default is 3.
+    :param slowdperiod: Slow D period. Default is 3.
+    :param slowkmatype: Slow K MA type (0=SMA, 1=EMA, 2=WMA, etc.). Default is 0.
+    :param slowdmatype: Slow D MA type. Default is 0.
+    :return: JSON response.
+    """
+    params = {
+        "function": "STOCH",
+        "symbol": symbol,
+        "interval": interval,
+        "fastkperiod": fastkperiod,
+        "slowkperiod": slowkperiod,
+        "slowdperiod": slowdperiod,
+        "slowkmatype": slowkmatype,
+        "slowdmatype": slowdmatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def stochf(symbol: str, interval: str, month: Optional[str] = None, fastkperiod: int = 5, fastdperiod: int = 3, fastdmatype: int = 0):
+    """
+    Stochastic Fast (STOCHF)
+
+    This API returns the stochastic fast values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastkperiod: Fast K period. Default is 5.
+    :param fastdperiod: Fast D period. Default is 3.
+    :param fastdmatype: Fast D MA type (0=SMA, 1=EMA, 2=WMA, etc.). Default is 0.
+    :return: JSON response.
+    """
+    params = {
+        "function": "STOCHF",
+        "symbol": symbol,
+        "interval": interval,
+        "fastkperiod": fastkperiod,
+        "fastdperiod": fastdperiod,
+        "fastdmatype": fastdmatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def rsi(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None):
+    """
+    Relative Strength Index (RSI)
+    
+    This API returns the relative strength index (RSI) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each RSI value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :return: JSON response.
+    """
+    params = {
+        "function": "RSI",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def stochrsi(symbol: str, interval: str, time_period: int, series_type: str, month: Optional[str] = None, fastkperiod: int = 5, fastdperiod: int = 3, fastdmatype: int = 0):
+    """
+    Stochastic Relative Strength Index (STOCHRSI)
+
+    This API returns the stochastic relative strength index (STOCHRSI) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each STOCHRSI value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastkperiod: Fast K period. Default is 5.
+    :param fastdperiod: Fast D period. Default is 3.
+    :param fastdmatype: Fast D MA type (0=SMA, 1=EMA, 2=WMA, etc.). Default is 0.
+    :return: JSON response.
+    """
+    params = {
+        "function": "STOCHRSI",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "fastkperiod": fastkperiod,
+        "fastdperiod": fastdperiod,
+        "fastdmatype": fastdmatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_sma(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Simple Moving Average (SMA)
+
+    This API returns the simple moving average (SMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "SMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_ema(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Exponential Moving Average (EMA)
+
+    This API returns the exponential moving average (EMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "EMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_wma(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Weighted Moving Average (WMA)
+
+    This API returns the weighted moving average (WMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "WMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_dema(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Double Exponential Moving Average (DEMA)
+
+    This API returns the double exponential moving average (DEMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "DEMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_tema(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Triple Exponential Moving Average (TEMA)
+
+    This API returns the triple exponential moving average (TEMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "TEMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_trima(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Triangular Moving Average (TRIMA)
+
+    This API returns the triangular moving average (TRIMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "TRIMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_kama(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Kaufman Adaptive Moving Average (KAMA)
+
+    This API returns the Kaufman adaptive moving average (KAMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "KAMA",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_mama(
+    symbol: str,
+    interval: str,
+    series_type: str,
+    month: Optional[str] = None,
+    fastlimit: float = 0.01,
+    slowlimit: float = 0.01,
+    datatype: str = "json"
+):
+    """
+    MESA Adaptive Moving Average (MAMA)
+
+    This API returns the MESA adaptive moving average (MAMA) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastlimit: Fast limit parameter. Default is 0.01.
+    :param slowlimit: Slow limit parameter. Default is 0.01.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "MAMA",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "fastlimit": fastlimit,
+        "slowlimit": slowlimit,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_vwap(
+    symbol: str,
+    interval: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Volume Weighted Average Price (VWAP) - Premium
+
+    This API returns the volume weighted average price (VWAP) for intraday time series.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Intraday interval ('1min', '5min', '15min', '30min', '60min').
+    :param month: Optional month in YYYY-MM format for specific month.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "VWAP",
+        "symbol": symbol,
+        "interval": interval,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_t3(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Triple Exponential Moving Average (T3)
+
+    This API returns the triple exponential moving average (T3) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each moving average value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "T3",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+# Technical Indicators - Momentum & Oscillators
+@mcp.tool()
+def get_macd(
+    symbol: str,
+    interval: str,
+    series_type: str,
+    month: Optional[str] = None,
+    fastperiod: int = 12,
+    slowperiod: int = 26,
+    signalperiod: int = 9,
+    datatype: str = "json"
+):
+    """
+    Moving Average Convergence / Divergence (MACD)
+    
+    This API returns the moving average convergence / divergence (MACD) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param fastperiod: Fast period (default 12).
+    :param slowperiod: Slow period (default 26).
+    :param signalperiod: Signal period (default 9).
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "MACD",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "fastperiod": fastperiod,
+        "slowperiod": slowperiod,
+        "signalperiod": signalperiod,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_macdext(
+    symbol: str,
+    interval: str,
+    series_type: str,
+    month: Optional[str] = None,
+    fastperiod: int = 12,
+    slowperiod: int = 26,
+    signalperiod: int = 9,
+    fastmatype: int = 0,
+    slowmatype: int = 0,
+    signalmatype: int = 0,
+    datatype: str = "json"
+):
+    """
+    MACD with Controllable MA Type (MACDEXT)
+
+    This API returns the MACD values with controllable moving average type.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastperiod: Fast period parameter. Default is 12.
+    :param slowperiod: Slow period parameter. Default is 26.
+    :param signalperiod: Signal period parameter. Default is 9.
+    :param fastmatype: Fast MA type (0=SMA, 1=EMA, 2=WMA, 3=DEMA, 4=TEMA, 5=TRIMA, 6=KAMA, 7=MAMA, 8=T3). Default is 0.
+    :param slowmatype: Slow MA type. Default is 0.
+    :param signalmatype: Signal MA type. Default is 0.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "MACDEXT",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "fastperiod": fastperiod,
+        "slowperiod": slowperiod,
+        "signalperiod": signalperiod,
+        "fastmatype": fastmatype,
+        "slowmatype": slowmatype,
+        "signalmatype": signalmatype,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_stoch(
+    symbol: str,
+    interval: str,
+    month: Optional[str] = None,
+    fastkperiod: int = 5,
+    slowkperiod: int = 3,
+    slowdperiod: int = 3,
+    slowkmatype: int = 0,
+    slowdmatype: int = 0,
+    datatype: str = "json"
+):
+    """
+    Stochastic Oscillator (STOCH)
+
+    This API returns the stochastic oscillator values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastkperiod: Fast K period. Default is 5.
+    :param slowkperiod: Slow K period. Default is 3.
+    :param slowdperiod: Slow D period. Default is 3.
+    :param slowkmatype: Slow K MA type (0=SMA, 1=EMA, 2=WMA, etc.). Default is 0.
+    :param slowdmatype: Slow D MA type. Default is 0.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "STOCH",
+        "symbol": symbol,
+        "interval": interval,
+        "fastkperiod": fastkperiod,
+        "slowkperiod": slowkperiod,
+        "slowdperiod": slowdperiod,
+        "slowkmatype": slowkmatype,
+        "slowdmatype": slowdmatype,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_stochf(
+    symbol: str,
+    interval: str,
+    month: Optional[str] = None,
+    fastkperiod: int = 5,
+    fastdperiod: int = 3,
+    fastdmatype: int = 0,
+    datatype: str = "json"
+):
+    """
+    Stochastic Fast (STOCHF)
+
+    This API returns the stochastic fast values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastkperiod: Fast K period. Default is 5.
+    :param fastdperiod: Fast D period. Default is 3.
+    :param fastdmatype: Fast D MA type (0=SMA, 1=EMA, 2=WMA, etc.). Default is 0.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "STOCHF",
+        "symbol": symbol,
+        "interval": interval,
+        "fastkperiod": fastkperiod,
+        "fastdperiod": fastdperiod,
+        "fastdmatype": fastdmatype,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_rsi(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Relative Strength Index (RSI)
+    
+    This API returns the relative strength index (RSI) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each RSI value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "RSI",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_stochrsi(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    series_type: str,
+    month: Optional[str] = None,
+    fastkperiod: int = 5,
+    fastdperiod: int = 3,
+    fastdmatype: int = 0,
+    datatype: str = "json"
+):
+    """
+    Stochastic Relative Strength Index (STOCHRSI)
+
+    This API returns the stochastic relative strength index (STOCHRSI) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each STOCHRSI value.
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastkperiod: Fast K period. Default is 5.
+    :param fastdperiod: Fast D period. Default is 3.
+    :param fastdmatype: Fast D MA type (0=SMA, 1=EMA, 2=WMA, etc.). Default is 0.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "STOCHRSI",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "series_type": series_type,
+        "fastkperiod": fastkperiod,
+        "fastdperiod": fastdperiod,
+        "fastdmatype": fastdmatype,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_trange(
+    symbol: str,
+    interval: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    True Range (TRANGE)
+
+    This API returns the true range values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "TRANGE",
+        "symbol": symbol,
+        "interval": interval,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_atr(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Average True Range (ATR)
+
+    This API returns the average true range (ATR) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each ATR value.
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "ATR",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_natr(
+    symbol: str,
+    interval: str,
+    time_period: int,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Normalized Average True Range (NATR)
+
+    This API returns the normalized average true range (NATR) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param time_period: Number of data points used to calculate each NATR value.
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "NATR",
+        "symbol": symbol,
+        "interval": interval,
+        "time_period": time_period,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_ad(
+    symbol: str,
+    interval: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Chaikin A/D Line (AD)
+
+    This API returns the Chaikin A/D line values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "AD",
+        "symbol": symbol,
+        "interval": interval,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_adosc(
+    symbol: str,
+    interval: str,
+    month: Optional[str] = None,
+    fastperiod: int = 3,
+    slowperiod: int = 10,
+    datatype: str = "json"
+):
+    """
+    Chaikin A/D Oscillator (ADOSC)
+
+    This API returns the Chaikin A/D oscillator values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param fastperiod: Fast period parameter. Default is 3.
+    :param slowperiod: Slow period parameter. Default is 10.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "ADOSC",
+        "symbol": symbol,
+        "interval": interval,
+        "fastperiod": fastperiod,
+        "slowperiod": slowperiod,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_obv(
+    symbol: str,
+    interval: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    On Balance Volume (OBV)
+
+    This API returns the on balance volume (OBV) values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "OBV",
+        "symbol": symbol,
+        "interval": interval,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_ht_trendline(
+    symbol: str,
+    interval: str,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Hilbert Transform - Instantaneous Trendline (HT_TRENDLINE)
+
+    This API returns the Hilbert Transform instantaneous trendline values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "HT_TRENDLINE",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_ht_sine(
+    symbol: str,
+    interval: str,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Hilbert Transform - SineWave (HT_SINE)
+
+    This API returns the Hilbert Transform sine wave values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "HT_SINE",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_ht_trendmode(
+    symbol: str,
+    interval: str,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Hilbert Transform - Trend vs Cycle Mode (HT_TRENDMODE)
+
+    This API returns the Hilbert Transform trend vs cycle mode values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "HT_TRENDMODE",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_ht_dcperiod(
+    symbol: str,
+    interval: str,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Hilbert Transform - Dominant Cycle Period (HT_DCPERIOD)
+
+    This API returns the Hilbert Transform dominant cycle period values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "HT_DCPERIOD",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_ht_dcphase(
+    symbol: str,
+    interval: str,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Hilbert Transform - Dominant Cycle Phase (HT_DCPHASE)
+
+    This API returns the Hilbert Transform dominant cycle phase values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "HT_DCPHASE",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
+@mcp.tool()
+def get_ht_phasor(
+    symbol: str,
+    interval: str,
+    series_type: str,
+    month: Optional[str] = None,
+    datatype: str = "json"
+):
+    """
+    Hilbert Transform - Phasor Components (HT_PHASOR)
+
+    This API returns the Hilbert Transform phasor components values.
+    :param symbol: The ticker symbol (e.g., 'IBM').
+    :param interval: Time interval ('1min', '5min', '15min', '30min', '60min', 'daily', 'weekly', 'monthly').
+    :param series_type: The desired price type ('close', 'open', 'high', 'low').
+    :param month: Optional month in YYYY-MM format for intraday intervals.
+    :param datatype: Output format ('json' or 'csv'). Default is 'json'.
+    :return: JSON response.
+    """
+    params = {
+        "function": "HT_PHASOR",
+        "symbol": symbol,
+        "interval": interval,
+        "series_type": series_type,
+        "datatype": datatype
+    }
+    if month:
+        params["month"] = month
+    return _make_request(params)
+
