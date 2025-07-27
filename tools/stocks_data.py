@@ -1,5 +1,7 @@
 import requests
 import os
+import csv
+import io
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from typing import Optional
@@ -369,15 +371,37 @@ def earnings_calendar(symbol: Optional[str] = None, horizon: str = "3month"):
     This API returns a list of company earnings expected in the next 3, 6, or 12 months.
     :param symbol: The ticker symbol (optional, e.g., 'IBM'). If not provided, returns all scheduled earnings.
     :param horizon: Time horizon ('3month', '6month', or '12month'). Defaults to '3month'.
-    :return: JSON response.
+    :return: JSON response with earnings calendar data.
     """
+    if not API_KEY:
+        raise ValueError("API key for Alpha Vantage is not set.")
+        
     params = {
         "function": "EARNINGS_CALENDAR",
-        "horizon": horizon
+        "horizon": horizon,
+        "datatype": "csv",  # Request CSV format to get the structured data
+        "apikey": API_KEY
     }
     if symbol:
         params["symbol"] = symbol
-    return _make_request(params)
+    
+    # Make request and handle CSV response
+    response = requests.get(BASE_URL, params=params)
+    response.raise_for_status()
+    
+    # Parse CSV data and convert to JSON
+    csv_data = response.text
+    csv_reader = csv.DictReader(io.StringIO(csv_data))
+    
+    # Convert CSV rows to list of dictionaries
+    earnings_data = []
+    for row in csv_reader:
+        earnings_data.append(dict(row))
+    
+    return {
+        "earnings_calendar": earnings_data,
+        "total_count": len(earnings_data)
+    }
 
 @mcp.tool()
 def ipo_calendar():
