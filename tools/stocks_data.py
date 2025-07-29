@@ -5,6 +5,7 @@ import io
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from typing import Optional
+import requests
 
 load_dotenv()
 BASE_URL = "https://www.alphavantage.co/query"
@@ -22,6 +23,28 @@ def _make_request(params):
     return response.json()
 
 mcp = FastMCP("stockwhisperer")   
+
+@mcp.tool()
+def get_all_tickers_in_exchange(exchanges: set[str])-> list[str]:
+    """
+    Get a list with all the symbols filtered by a given exchange.
+    
+    Valid exchanges: {'AMEX', 'OTC', 'NYSE', 'NASDAQ'}
+    
+    :param exchanges: a set which contains the exchanges you want to keep (all the rest will be ignored)
+    :return: list of symbols
+    """
+
+    exchanges = {x.upper() for x in exchanges}
+    r = requests.get('https://scanner.tradingview.com/america/scan')
+    data = r.json()['data']  # [{'s': 'NYSE:HKD', 'd': []}, {'s': 'NASDAQ:ALTY', 'd': []}...]
+    
+    symbols = []
+    for dct in data:
+        exchange, symbol = dct['s'].split(':')
+        if exchange in exchanges:
+            symbols.append(symbol)
+    return symbols
 
 @mcp.tool()
 def get_intraday_data(
