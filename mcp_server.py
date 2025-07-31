@@ -1,5 +1,5 @@
 import logging
-import uvicorn
+import gunicorn
 from starlette.applications import Starlette
 from starlette.routing import Mount
 from tools.exchange_rate import mcp as cashanova_mcp
@@ -31,6 +31,3 @@ app = Starlette(
         Mount("/news", app=news_mcp.sse_app()),
     ],
 )
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8001)

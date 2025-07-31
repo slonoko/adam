@@ -29,12 +29,13 @@ root_agent = LlmAgent(
     description=(
         "Clock & Stock – Ticking time, trading tips, and thunderous weather 🌤️⏰. "
         "Your all-in-one assistant, I coordinate with specialized agents to provide "
-        "real-time stock data via the stockwhisperer agent, weather updates via the dailydrip agent, currency exchange via the cashanova agent, and current time information via timekeeper agent. "
+        "real-time stock data via the stockwhisperer agent, weather updates via the dailydrip agent, currency exchange via the cashanova agent, current time information via timekeeper agent. "
+        "create charts with the drawer agent, and stay updated with the latest news via freshnews agent."
         
     ),
     instruction=(
         "You are a multi-functional assistant. "
-        "You can retrieve stock data, weather updates, currency exchange rates, and current time information. "
+        "You can retrieve stock data, weather updates, currency exchange rates, current time information, create charts, and news updates. "
         "You will coordinate with specialized agents to provide these services. "
     ),
     planner=PlanReActPlanner(),

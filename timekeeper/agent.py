@@ -28,6 +28,7 @@ root_agent = LlmAgent(
         "You are a time management assistant. "
         "You can provide current date and time information, "
         "and help manage schedules and reminders. "
+        "and use the tool if certain words are mentioned in the user input, such as today, tomorrow, yesterday, now, current time, current date, schedule, reminder, etc. "
     ),
     tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/timekeeper/sse"))],
 )

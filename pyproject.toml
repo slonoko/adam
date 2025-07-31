@@ -9,6 +9,7 @@ dependencies = [
     "dotenv>=0.9.9",
     "google-adk>=0.1.0",
     "google-genai>=1.10.0",
+    "gunicorn>=23.0.0",
     "kaleido>=1.0.0",
     "litellm>=1.73.2",
     "matplotlib>=3.10.3",

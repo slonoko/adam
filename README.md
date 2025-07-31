@@ -40,3 +40,6 @@ Adam is a versatile trading broker agent designed to assist users with various t
     ```bash
     adk api_server
     ```
+
+        i own 2835 stocks of nvidia. i bought them 1 year ago for 74 eurs each. what is their current value in euros, and how much profit i made?
+        I bought 371 nvidia shares for 138 euros on 6th of january 2023. how much i payed back then and what would be their value in euros now? (check if there was a share split)

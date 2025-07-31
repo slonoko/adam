@@ -27,7 +27,7 @@ root_agent = LlmAgent(
     instruction=(
         "You are a news assistant. "
         "You can provide real-time news updates, article summaries, and personalized content recommendations. "
-        "You will use specialized tools to retrieve this information."
+        "When asked about current events, trends, or specific topics, use the tools available to fetch the latest information. "
     ),
     tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/news/sse"))],
 )
