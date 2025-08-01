@@ -2,7 +2,6 @@ from google.adk.agents import LlmAgent
 import logging
 from dotenv import load_dotenv
 import sys
-from tools.datetime import current_date_and_time
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
@@ -30,5 +29,5 @@ root_agent = LlmAgent(
         "and help manage schedules and reminders. "
         "and use the tool if certain words are mentioned in the user input, such as today, tomorrow, yesterday, now, current time, current date, schedule, reminder, etc. "
     ),
-    tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/timekeeper/sse"))],
+    tools=[MCPToolset(connection_params=SseConnectionParams(url=f"{os.getenv('mcp_server_url')}/timekeeper/sse"))],
 )

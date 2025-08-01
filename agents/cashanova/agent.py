@@ -3,7 +3,6 @@ import logging
 from dotenv import load_dotenv
 import sys
 from google.adk.tools import load_memory  # Tool to query memory
-from tools.exchange_rate import convert, get_exchange_rates
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
@@ -30,5 +29,5 @@ root_agent = LlmAgent(
         "You are a financial assistant. "
         "You can retrieve exchange rates and convert from one currency to another. "
     ),
-    tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/cashanova/sse"))],
+    tools=[MCPToolset(connection_params=SseConnectionParams(url=f"{os.getenv('mcp_server_url')}/cashanova/sse"))],
 )

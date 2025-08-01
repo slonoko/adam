@@ -44,5 +44,5 @@ root_agent = LlmAgent(
         "Use appropriate chart types based on the data and user's needs - line charts for trends, candlesticks for detailed price analysis, "
         "histograms for distributions, heatmaps for correlations, etc."
     ),
-    tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/plotter/sse"))],
+    tools=[MCPToolset(connection_params=SseConnectionParams(url=f"{os.getenv('mcp_server_url')}/plotter/sse"))],
 )

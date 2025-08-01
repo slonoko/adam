@@ -1,0 +1,18 @@
+[project]
+name = "adam-tools"
+version = "0.1.0"
+description = "Tools that can be used by the Adam agents"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "dotenv>=0.9.9",
+    "google-adk>=0.1.0",
+    "google-genai>=1.10.0",
+    "kaleido>=1.0.0",
+    "matplotlib>=3.10.3",
+    "mcp[cli]>=1.6.0",
+    "plotly>=6.2.0",
+    "requests>=2.32.3",
+    "starlette>=0.46.2",
+    "uvicorn>=0.35.0",
+]

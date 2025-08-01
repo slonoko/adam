@@ -1,5 +1,4 @@
 import logging
-import gunicorn
 from starlette.applications import Starlette
 from starlette.routing import Mount
 from tools.exchange_rate import mcp as cashanova_mcp
@@ -21,7 +20,7 @@ logging.basicConfig(
 )
 
 app = Starlette(
-    debug=True,
+    debug=False,
     routes=[
         Mount("/cashanova", app=cashanova_mcp.sse_app()),
         Mount("/timekeeper", app=datetime_mcp.sse_app()),

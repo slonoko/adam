@@ -2,7 +2,6 @@ from google.adk.agents import LlmAgent
 import logging
 from dotenv import load_dotenv
 import sys
-from tools.stocks_data import *
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
@@ -29,5 +28,5 @@ root_agent = LlmAgent(
         "You can provide real-time news updates, article summaries, and personalized content recommendations. "
         "When asked about current events, trends, or specific topics, use the tools available to fetch the latest information. "
     ),
-    tools=[MCPToolset(connection_params=SseConnectionParams(url="http://localhost:8001/news/sse"))],
+    tools=[MCPToolset(connection_params=SseConnectionParams(url=f"{os.getenv('mcp_server_url')}/news/sse"))],
 )
