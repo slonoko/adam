@@ -3,19 +3,18 @@ name = "adam"
 version = "0.1.0"
 description = "Adam assistant, a personal assistant for your daily tasks"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = "==3.10.*"
 dependencies = [
-    "a2a-sdk>=0.2.16",
+    "cloudpickle>=3.1.1",
+    "dill>=0.4.0",
     "dotenv>=0.9.9",
-    "google-adk>=0.1.0",
-    "google-genai>=1.10.0",
-    "gunicorn>=23.0.0",
-    "kaleido>=1.0.0",
+    "google-adk>=1.9.0",
+    "google-cloud-aiplatform[adk,agent-engines]>=1.106.0",
+    "google-genai>=1.28.0",
     "litellm>=1.73.2",
     "matplotlib>=3.10.3",
-    "mcp[cli]>=1.6.0",
+    "mcp[cli]>=1.12.3",
     "plotly>=6.2.0",
     "requests>=2.32.3",
-    "starlette>=0.46.2",
-    "uvicorn>=0.35.0",
+    "toml-to-requirements>=0.3.0",
 ]

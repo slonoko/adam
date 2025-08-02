@@ -3,7 +3,7 @@ import logging
 from dotenv import load_dotenv
 import sys
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
-from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
+from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams, SseServerParams
 import os
 
 load_dotenv()
@@ -17,7 +17,7 @@ logging.basicConfig(
 
 root_agent = LlmAgent(
     name="Timekeeper",
-    model=os.getenv("MODEL_NAME", ""),
+    model=os.getenv("MODEL_NAME", "gemini-2.5-flash"),
     description=("The Timekeeper – Your personal assistant for time 🌤️⏰. "
                  "It provides current date and time information, "
                  "and can help you manage your schedule and reminders."
@@ -29,5 +29,4 @@ root_agent = LlmAgent(
         "and help manage schedules and reminders. "
         "and use the tool if certain words are mentioned in the user input, such as today, tomorrow, yesterday, now, current time, current date, schedule, reminder, etc. "
     ),
-    tools=[MCPToolset(connection_params=SseConnectionParams(url=f"{os.getenv('mcp_server_url')}/timekeeper/sse"))],
-)
+    tools=[MCPToolset(connection_params=SseConnectionParams(url=f"{os.getenv('mcp_server_url')}/timekeeper/sse"), errlog=None)])
