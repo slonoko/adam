@@ -2,11 +2,12 @@ import logging
 from starlette.applications import Starlette
 from starlette.routing import Mount
 from tools.exchange_rate import mcp as cashanova_mcp
-from tools.datetime import mcp as datetime_mcp
+from tools.datetime_info import mcp as datetime_mcp
 from tools.stocks_data import mcp as stocks_data_mcp
 from tools.weather import mcp as weather_mcp
 from tools.plotter import mcp as plotter_mcp
 from tools.news import mcp  as news_mcp
+from tools.corpora_search import mcp as corpus_tools
 import sys
 from dotenv import load_dotenv
 
@@ -28,5 +29,6 @@ app = Starlette(
         Mount("/dailydrip", app=weather_mcp.sse_app()),
         Mount("/plotter", app=plotter_mcp.sse_app()),
         Mount("/news", app=news_mcp.sse_app()),
+        Mount("/corpora_search", app=corpus_tools.sse_app()),
     ],
 )

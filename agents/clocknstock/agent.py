@@ -3,13 +3,13 @@ import logging
 from dotenv import load_dotenv
 import sys
 from google.adk.tools import load_memory  # Tool to query memory
-from google.adk.models.lite_llm import LiteLlm
 from cashanova.agent import root_agent as cashanova_agent
 from dailydrip.agent import root_agent as weather_agent
 from stockwhisperer.agent import root_agent as stock_agent
 from timekeeper.agent import root_agent as time_agent
 from drawer.agent import root_agent as drawer_agent
 from freshnews.agent import root_agent as news_agent
+from tradingguru.agent import root_agent as kbase_agent
 from google.adk.tools import load_memory  # Tool to query memory
 from google.adk.planners import PlanReActPlanner
 import os
@@ -37,6 +37,7 @@ root_agent = LlmAgent(
         "You are a multi-functional assistant. "
         "You can retrieve stock data, weather updates, currency exchange rates, current time information, create charts, and news updates. "
         "You will coordinate with specialized agents to provide these services. "
+        "When asked for a investment advice, use the tradingguru agent at the end to validate your response. "
     ),
     planner=PlanReActPlanner(),
     tools=[load_memory],
@@ -46,6 +47,7 @@ root_agent = LlmAgent(
         stock_agent,
         time_agent,
         drawer_agent,
-        news_agent
+        news_agent,
+        kbase_agent
     ]
 )

@@ -107,6 +107,7 @@ def deploy_agent_engine_app(
 
     agent_engine = AgentEngineApp(
         agent=root_agent,
+        enable_tracing=True,
         artifact_service_builder=lambda: GcsArtifactService(
             bucket_name=artifacts_bucket_name
         ),
