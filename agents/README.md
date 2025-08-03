@@ -12,6 +12,7 @@ A collection of specialized AI agents for trading, finance, weather, news, and d
 - **🌤️ DailyDrip** - Weather forecasts and current conditions
 - **📊 Drawer** - Advanced data visualization and charting
 - **📰 FreshNews** - Latest news and market insights
+- **📚 TradingGuru** - Trading insights and information retrieval from trading corpora
 - **⚡ ClocknStock** - Multi-functional coordinator agent that orchestrates all specialized agents
 
 ### Core Capabilities
@@ -32,9 +33,10 @@ agents/
 ├── dailydrip/          # Weather information agent
 ├── drawer/             # Data visualization agent
 ├── freshnews/          # News aggregation agent
-├── kbase/              # Knowledge base storage
 ├── stockwhisperer/     # Stock market agent
 ├── timekeeper/         # Time management agent
+├── tradingguru/        # Trading insights and corpora search agent
+├── .env.example        # Environment variables template
 ├── pyproject.toml      # Python dependencies
 └── README.md           # This file
 ```
@@ -61,11 +63,25 @@ agents/
    ```
 
 3. **Set up environment variables:**
-   - Create a `.env` file in the project root
-   - Configure required API keys and model settings:
+   - Copy the example environment file:
+     ```bash
+     cp .env.example .env
+     ```
+   - Configure required API keys and model settings in `.env`:
      ```env
-     MODEL_NAME=your_model_name
-     # Add other required environment variables
+     # Google Cloud Configuration
+     GOOGLE_CLOUD_PROJECT=your_google_cloud_project_id
+     GOOGLE_CLOUD_LOCATION=us-central1
+     GOOGLE_GENAI_USE_VERTEXAI=False
+
+     # Google API Key for Gemini models
+     GOOGLE_API_KEY=your_google_api_key_here
+
+     # AI Model to use for agents
+     MODEL_NAME=gemini-2.5-flash
+
+     # MCP Server URL (where the MCP tools server is running)
+     mcp_server_url=http://localhost:8080
      ```
 
 ## 🚦 Running the Agents
@@ -85,6 +101,7 @@ adk run dailydrip
 adk run timekeeper
 adk run drawer
 adk run freshnews
+adk run tradingguru
 ```
 
 ### Web Interface
@@ -112,7 +129,7 @@ The agents can be containerized and deployed using Docker configurations availab
 ## 🤖 Agent Descriptions
 
 ### ClocknStock (Coordinator Agent)
-The main orchestrator that coordinates all specialized agents to provide comprehensive assistance. It uses a PlanReActPlanner to intelligently route requests to appropriate sub-agents.
+The main orchestrator that coordinates all specialized agents to provide comprehensive assistance. It uses a PlanReActPlanner to intelligently route requests to appropriate sub-agents, including validation of investment advice through the TradingGuru agent.
 
 ### StockWhisperer
 An AI-powered stockbroker providing:
@@ -148,6 +165,12 @@ News aggregation agent delivering:
 - Technology, health, and finance news
 - Personalized content recommendations
 
+### TradingGuru
+Trading insights specialist providing:
+- Information retrieval from trading corpora
+- Trading knowledge and insights
+- Investment advice validation
+
 ### Timekeeper
 Time management assistant providing:
 - Current date and time
@@ -172,8 +195,11 @@ Time management assistant providing:
 
 Key environment variables to configure:
 
-- `MODEL_NAME`: The LLM model to use for agents
-- API keys for various services (weather, stock data, news, etc.)
+- `GOOGLE_CLOUD_PROJECT`: Your Google Cloud project ID
+- `GOOGLE_CLOUD_LOCATION`: Google Cloud region (default: us-central1)
+- `GOOGLE_API_KEY`: Google API key for Gemini models
+- `MODEL_NAME`: The LLM model to use for agents (e.g., gemini-2.5-flash)
+- `mcp_server_url`: URL of the MCP server providing tools to agents (default: http://localhost:8080)
 
 ### MCP Integration
 
