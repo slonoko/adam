@@ -22,6 +22,7 @@ RUN uv pip install --system -r pyproject.toml
 # Copy the application files
 COPY mcp_server.py ./
 COPY tools/ ./tools/
+COPY application_default_credentials.json /app/application_default_credentials.json
 
 # Create a non-root user for security
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app

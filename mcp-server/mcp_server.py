@@ -10,6 +10,7 @@ from tools.news import mcp  as news_mcp
 from tools.corpora_search import mcp as corpus_tools
 import sys
 from dotenv import load_dotenv
+import uvicorn
 
 load_dotenv()
 
@@ -32,3 +33,8 @@ app = Starlette(
         Mount("/corpora_search", app=corpus_tools.sse_app()),
     ],
 )
+
+if __name__ == "__main__":
+    uvicorn.run(
+        app,
+        host="0.0.0.0", port=8001)

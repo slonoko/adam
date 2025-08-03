@@ -1,4 +1,6 @@
+import logging
 import os
+import sys
 import vertexai
 from vertexai.preview import rag
 from google.adk.tools import FunctionTool
@@ -15,12 +17,20 @@ RAG_DEFAULT_VECTOR_DISTANCE_THRESHOLD = 0.5
 
 PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT")
 LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
+API_KEY = os.getenv("GOOGLE_API_KEY")
+
+logging.basicConfig(
+    stream=sys.stdout,
+    level=logging.DEBUG,
+    format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 # Create an MCP server
-mcp = FastMCP("corpora_search")   
+mcp = FastMCP("corpora_search")
 
 # Initialize Vertex AI API
-vertexai.init(project=PROJECT_ID, location=LOCATION)
+vertexai.init(project=PROJECT_ID,location=LOCATION, api_key=API_KEY)
 
 @mcp.tool()
 def list_rag_corpora() -> Dict[str, Any]:
@@ -39,6 +49,7 @@ def list_rag_corpora() -> Dict[str, Any]:
         
         corpus_list = []
         for corpus in corpora:
+            logging.info(f"Found RAG corpus: {corpus.name}")    
             corpus_id = corpus.name.split('/')[-1]
             
             # Get corpus status

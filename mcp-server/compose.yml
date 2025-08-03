@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8001:8000"
-    environment:
-      - PYTHONUNBUFFERED=1
     env_file:
       - .env  # This reads from host .env file without copying it into the image
     restart: unless-stopped
