@@ -12,6 +12,7 @@ A Model Context Protocol (MCP) server that provides specialized tools for the Ad
 - **🌤️ Weather Tools** - Current weather and forecast information  
 - **📊 Plotting Tools** - Data visualization and charting capabilities
 - **📰 News Tools** - Latest news aggregation and updates
+- **🔍 Corpora Search Tools** - Document search and retrieval using RAG
 
 ### MCP Endpoints
 
@@ -23,6 +24,7 @@ The server exposes the following SSE (Server-Sent Events) endpoints:
 - `/dailydrip/sse` - Weather tools
 - `/plotter/sse` - Data visualization tools
 - `/news/sse` - News aggregation tools
+- `/corpora_search/sse` - Document search and retrieval tools
 
 ## 📁 Project Structure
 
@@ -30,17 +32,21 @@ The server exposes the following SSE (Server-Sent Events) endpoints:
 mcp-server/
 ├── tools/                    # Tool implementations
 │   ├── __init__.py
-│   ├── datetime.py          # Time and date utilities
-│   ├── exchange_rate.py     # Currency exchange tools
-│   ├── news.py              # News aggregation tools
-│   ├── plotter.py           # Data visualization tools
-│   ├── stocks_data.py       # Stock market data tools
-│   └── weather.py           # Weather information tools
-├── mcp_server.py            # Main MCP server application
-├── pyproject.toml           # Python dependencies
-├── Dockerfile               # Container configuration
-├── docker-compose.yml       # Multi-container setup
-└── README.md                # This file
+│   ├── datetime_info.py      # Time and date utilities
+│   ├── exchange_rate.py      # Currency exchange tools
+│   ├── news.py               # News aggregation tools
+│   ├── plotter.py            # Data visualization tools
+│   ├── stocks_data.py        # Stock market data tools
+│   ├── weather.py            # Weather information tools
+│   └── corpora_search.py     # Document search and RAG tools
+├── mcp_server.py             # Main MCP server application
+├── pyproject.toml            # Python dependencies
+├── uv.lock                   # Lock file for dependencies
+├── Dockerfile                # Container configuration
+├── compose.yml               # Multi-container setup
+├── deployment.yaml           # Kubernetes deployment config
+├── application_default_credentials.json  # GCP credentials
+└── README.md                 # This file
 ```
 
 ## 🛠️ Installation
@@ -61,16 +67,26 @@ mcp-server/
 
 2. **Install dependencies:**
    ```bash
-   uv install
+   uv sync
    ```
 
 3. **Set up environment variables:**
    - Create a `.env` file in this directory
    - Configure required API keys and settings:
      ```env
-     # Add your API keys and configuration here
+     # Google Cloud Configuration
+     GOOGLE_CLOUD_PROJECT=your-project-id
+     GOOGLE_CLOUD_LOCATION=us-central1
+     GOOGLE_API_KEY=your-api-key
+     
+     # External API Keys
      # Weather API keys, stock data APIs, news APIs, etc.
+     # Add your service-specific API keys here
      ```
+
+4. **Set up Google Cloud credentials (for corpora search):**
+   - Place your `application_default_credentials.json` file in the project root
+   - Or configure Application Default Credentials via `gcloud auth application-default login`
 
 ## 🚦 Running the Server
 
@@ -93,10 +109,23 @@ Build and run using Docker:
 docker build -t adam-mcp-server .
 
 # Run the container
-docker run -p 8001:8001 adam-mcp-server
+docker run -p 8001:8000 adam-mcp-server
 
 # Or use Docker Compose
-docker-compose up --build
+docker compose up --build
+```
+
+### Kubernetes Deployment
+
+Deploy to Kubernetes using the provided configuration:
+
+```bash
+# Apply the deployment configuration
+kubectl apply -f deployment.yaml
+
+# Check the deployment status
+kubectl get pods
+kubectl get services
 ```
 
 ## 🔧 Tool Details
@@ -132,6 +161,12 @@ docker-compose up --build
 - Topic-specific news filtering
 - Real-time news updates
 
+### Corpora Search Tools (`/corpora_search/sse`)
+- Document search and retrieval using Google Cloud RAG
+- Semantic search across document collections
+- Vector-based document similarity matching
+- Support for multiple corpora and knowledge bases
+
 ## 🔗 MCP Integration
 
 This server implements the Model Context Protocol (MCP) specification:
@@ -163,13 +198,14 @@ tools = MCPToolset(
 
 Configure the following environment variables as needed:
 
-- API keys for external services (weather, stock data, news)
-- Server configuration (port, host, etc.)
-- Logging levels and output formats
+- **API Keys**: Weather API, stock data APIs, news APIs, Google Cloud credentials
+- **Google Cloud**: `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`, `GOOGLE_API_KEY`
+- **Server Configuration**: Port, host, logging levels
+- **External Services**: API endpoints and authentication tokens
 
 ### Server Settings
 
-The server runs on port 8001 by default and can be configured through environment variables or the main application file.
+The server runs on port 8001 by default (mapped to container port 8000) and can be configured through environment variables or the main application file.
 
 ## 📊 Logging
 
@@ -196,7 +232,10 @@ Key dependencies include:
 - `uvicorn` - ASGI server
 - `requests` - HTTP client for external APIs
 - `matplotlib` & `plotly` - Data visualization
+- `kaleido` - Static image export for Plotly
 - `google-adk` - Google ADK framework integration
+- `google-genai` - Google Generative AI client
+- `dotenv` - Environment variable management
 
 ## 🆘 Troubleshooting
 
