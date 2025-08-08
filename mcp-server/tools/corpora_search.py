@@ -3,10 +3,10 @@ import os
 import sys
 import vertexai
 from vertexai.preview import rag
-from google.adk.tools import FunctionTool
 from typing import Dict, Optional, Any
 from dotenv import load_dotenv
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP, Client
+import asyncio
 
 load_dotenv()
 
@@ -15,8 +15,6 @@ RAG_DEFAULT_TOP_K = 10  # Default number of results for single corpus query
 RAG_DEFAULT_SEARCH_TOP_K = 5  # Default number of results per corpus for search_all
 RAG_DEFAULT_VECTOR_DISTANCE_THRESHOLD = 0.5
 
-PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT")
-LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
 API_KEY = os.getenv("GOOGLE_API_KEY")
 
 logging.basicConfig(
@@ -30,9 +28,9 @@ logging.basicConfig(
 mcp = FastMCP("corpora_search")
 
 # Initialize Vertex AI API
-vertexai.init(project=PROJECT_ID,location=LOCATION, api_key=API_KEY)
+vertexai.init(api_key=API_KEY)
 
-@mcp.tool()
+@mcp.tool
 def list_rag_corpora() -> Dict[str, Any]:
     """
     Lists all RAG corpora in the current project and location.
@@ -94,10 +92,9 @@ def list_rag_corpora() -> Dict[str, Any]:
             "message": f"Failed to list RAG corpora: {str(e)}"
         }
 
-
-@mcp.tool()
+@mcp.tool
 def query_rag_corpus(
-    corpus_id: str,
+    corpus_path: str,
     query_text: str,
     top_k: Optional[int] = None,
     vector_distance_threshold: Optional[float] = None
@@ -119,8 +116,6 @@ def query_rag_corpus(
     if vector_distance_threshold is None:
         vector_distance_threshold = RAG_DEFAULT_VECTOR_DISTANCE_THRESHOLD
     try:
-        # Construct full corpus resource path
-        corpus_path = f"projects/{PROJECT_ID}/locations/{LOCATION}/ragCorpora/{corpus_id}"
         
         # Create the resource config
         rag_resource = rag.RagResource(rag_corpus=corpus_path)
@@ -157,7 +152,7 @@ def query_rag_corpus(
         
         return {
             "status": "success",
-            "corpus_id": corpus_id,
+            "corpus_path": corpus_path,
             "results": results,
             "count": len(results),
             "query": query_text,
@@ -167,12 +162,12 @@ def query_rag_corpus(
     except Exception as e:
         return {
             "status": "error",
-            "corpus_id": corpus_id,
+            "corpus_path": corpus_path,
             "error_message": str(e),
             "message": f"Failed to query corpus: {str(e)}"
         }
 
-@mcp.tool()
+@mcp.tool
 def search_all_corpora(
     query_text: str,
     top_k_per_corpus: Optional[int] = None,
@@ -225,7 +220,7 @@ def search_all_corpora(
             
             # Query this corpus
             corpus_results = query_rag_corpus(
-                corpus_id=corpus_id,
+                corpus_path=corpus_id,
                 query_text=query_text,
                 top_k=top_k_per_corpus,
                 vector_distance_threshold=vector_distance_threshold
@@ -293,3 +288,16 @@ def search_all_corpora(
             "error_message": str(e),
             "message": f"Failed to search all corpora: {str(e)}"
         }
+
+""" client = Client(mcp)
+
+async def call_tool(query: str):
+    async with client:
+        result = await client.call_tool("search_all_corpora", {"query_text": query})
+        print(result)
+
+asyncio.run(call_tool("stock options"))
+ """
+""" 
+if __name__ == "__main__":
+    mcp.run(transport="http",log_level="debug",port=8000) """

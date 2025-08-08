@@ -1,8 +1,7 @@
-from google.adk.agents import Agent
 import requests
 import datetime
 from zoneinfo import ZoneInfo
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 
 mcp = FastMCP("stockwhisperer")   
 

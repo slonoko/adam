@@ -3,7 +3,7 @@ import logging
 from dotenv import load_dotenv
 import sys
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
-from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
+from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 import os
 load_dotenv()
 logging.basicConfig(
@@ -44,5 +44,5 @@ root_agent = LlmAgent(
         "Use appropriate chart types based on the data and user's needs - line charts for trends, candlesticks for detailed price analysis, "
         "histograms for distributions, heatmaps for correlations, etc."
     ),
-    tools=[MCPToolset(connection_params=SseConnectionParams(url=f"{os.getenv('mcp_server_url')}/plotter/sse"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"))],
 )

@@ -2,7 +2,7 @@ import requests
 import os
 import csv
 import io
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 from dotenv import load_dotenv
 from typing import Optional
 import requests

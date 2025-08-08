@@ -1,4 +1,6 @@
+import asyncio
 import logging
+from fastmcp import FastMCP
 from starlette.applications import Starlette
 from starlette.routing import Mount
 from tools.exchange_rate import mcp as cashanova_mcp
@@ -21,20 +23,19 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
-app = Starlette(
-    debug=False,
-    routes=[
-        Mount("/cashanova", app=cashanova_mcp.sse_app()),
-        Mount("/timekeeper", app=datetime_mcp.sse_app()),
-        Mount("/stockwhisperer", app=stocks_data_mcp.sse_app()),
-        Mount("/dailydrip", app=weather_mcp.sse_app()),
-        Mount("/plotter", app=plotter_mcp.sse_app()),
-        Mount("/news", app=news_mcp.sse_app()),
-        Mount("/corpora_search", app=corpus_tools.sse_app()),
-    ],
-)
+# Define main server
+main_mcp = FastMCP(name="AdamMCP")
+
+# Import subserver
+async def setup():
+    await main_mcp.import_server(cashanova_mcp, prefix="c")
+    await main_mcp.import_server(datetime_mcp, prefix="t")
+    await main_mcp.import_server(stocks_data_mcp, prefix="s")
+    await main_mcp.import_server(weather_mcp, prefix="d")
+    await main_mcp.import_server(plotter_mcp, prefix="p")
+    await main_mcp.import_server(news_mcp, prefix="n")
+    await main_mcp.import_server(corpus_tools, prefix="cs")
 
 if __name__ == "__main__":
-    uvicorn.run(
-        app,
-        host="0.0.0.0", port=8001)
+    asyncio.run(setup())
+    main_mcp.run(transport= "streamable-http", host="0.0.0.0")

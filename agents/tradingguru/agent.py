@@ -3,7 +3,7 @@ import logging
 from dotenv import load_dotenv
 import sys
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
-from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
+from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 import os
 
 load_dotenv()
@@ -22,5 +22,5 @@ root_agent = LlmAgent(
                  "It helps you find and retrieve information from various trading corpora."
     ),
     instruction=("Use the tools provided to search and retrieve information from the trading corpora."),
-    tools=[MCPToolset(connection_params=SseConnectionParams(url=f"{os.getenv('mcp_server_url')}/corpora_search/sse"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"))],
 )

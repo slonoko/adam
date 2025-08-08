@@ -6,7 +6,7 @@ import os
 import logging
 import sys
 import json
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 
 load_dotenv()
 
@@ -24,7 +24,7 @@ api_url = f"https://v6.exchangerate-api.com/v6/{os.getenv('EXCHANGE_RATE_API_KEY
 mcp = FastMCP("cashanova")
 
 
-@mcp.tool()
+@mcp.tool
 def get_exchange_rates(from_currency: str = "USD") -> dict:
     """
     Get exchange rates for a given currency.
@@ -41,7 +41,7 @@ def get_exchange_rates(from_currency: str = "USD") -> dict:
     else:
         return {}
 
-@mcp.tool()
+@mcp.tool
 def convert(
     amount: float, from_currency: str = "USD", to_currency: str = "EUR"
 ) -> dict:

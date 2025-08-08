@@ -1,6 +1,6 @@
 import requests
 import os
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 from dotenv import load_dotenv
 from typing import Optional
 import requests
@@ -15,7 +15,7 @@ if not API_KEY:
 
 mcp = FastMCP("news")
 
-@mcp.tool()
+@mcp.tool
 def get_news(query: str, from_date: Optional[str] = None, sort_by: str = "popularity"):
     """Fetches news articles based on the provided query and date range.
     Args:

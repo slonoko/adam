@@ -3,7 +3,8 @@ import plotly.express as px
 import io
 import base64
 from typing import List, Optional, Union, Dict, Any
-from mcp.server.fastmcp import FastMCP, Image
+from fastmcp import FastMCP
+from fastmcp.utilities.types import Image
 
 mcp = FastMCP("plotter")
 

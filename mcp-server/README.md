@@ -128,6 +128,50 @@ kubectl get pods
 kubectl get services
 ```
 
+### Google Cloud Deployment
+
+Deploy to Google Cloud using Cloud Build, Artifact Registry, and Cloud Run:
+
+#### Prerequisites
+
+- Google Cloud Project with billing enabled
+- `gcloud` CLI installed and authenticated
+- Required APIs enabled (Cloud Build, Artifact Registry, Cloud Run)
+
+#### Deployment Steps
+
+1. **Create an Artifact Registry repository to store the container image:**
+   ```bash
+   gcloud artifacts repositories create remote-mcp-servers \
+     --repository-format=docker \
+     --location=us-central1 \
+     --description="Repository for remote MCP servers" \
+     --project=$PROJECT_ID
+   ```
+
+2. **Build the container image and push it to Artifact Registry with Cloud Build:**
+   ```bash
+   gcloud builds submit --region=us-central1 --tag us-central1-docker.pkg.dev/$PROJECT_ID/remote-mcp-servers/mcp-server:latest
+   ```
+
+3. **Deploy the MCP server container image to Cloud Run:**
+   ```bash
+   gcloud run deploy mcp-server \
+     --image us-central1-docker.pkg.dev/$PROJECT_ID/remote-mcp-servers/mcp-server:latest \
+     --region=us-central1 \
+     --no-allow-unauthenticated
+   ```
+
+#### Deployment Verification
+
+Once deployment is complete, you will see a success message similar to:
+
+```
+Service [mcp-server] revision [mcp-server-12345-abc] has been deployed and is serving 100 percent of traffic.
+```
+
+The service will be accessible at the Cloud Run service URL provided in the deployment output.
+
 ## 🔧 Tool Details
 
 ### Exchange Rate Tools (`/cashanova/sse`)

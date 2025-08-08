@@ -5,7 +5,7 @@ import sys
 from google.adk.tools import load_memory  # Tool to query memory
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
-from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
+from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 import os
 
 load_dotenv()
@@ -29,5 +29,5 @@ root_agent = LlmAgent(
         "You are a financial assistant. "
         "You can retrieve exchange rates and convert from one currency to another. "
     ),
-    tools=[MCPToolset(connection_params=SseConnectionParams(url=f"{os.getenv('mcp_server_url')}/cashanova/sse"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"))],
 )
