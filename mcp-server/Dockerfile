@@ -21,6 +21,7 @@ RUN uv pip install --system -r pyproject.toml
 
 # Copy the application files
 COPY server.py ./
+COPY adam-sa.json ./
 COPY tools/ ./tools/
 
 # Create a non-root user for security

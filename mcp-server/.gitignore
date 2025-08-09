@@ -10,4 +10,6 @@ wheels/
 .venv
 .env
 .local*
-application_default_credentials.json
+
+# Service account credentials
+adam-sa.json

@@ -6,7 +6,8 @@ from vertexai import rag
 from typing import Dict, Optional, Any
 from dotenv import load_dotenv
 from fastmcp import FastMCP, Client
-import asyncio
+from google.oauth2 import service_account
+import json
 
 load_dotenv()
 
@@ -14,10 +15,6 @@ load_dotenv()
 RAG_DEFAULT_TOP_K = 10  # Default number of results for single corpus query
 RAG_DEFAULT_SEARCH_TOP_K = 5  # Default number of results per corpus for search_all
 RAG_DEFAULT_VECTOR_DISTANCE_THRESHOLD = 0.5
-
-API_KEY = os.getenv("GOOGLE_API_KEY")
-PROJECT_NAME = os.getenv("GOOGLE_CLOUD_PROJECT")
-PROJECT_LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION")
 
 logging.basicConfig(
     stream=sys.stdout,
@@ -29,8 +26,36 @@ logging.basicConfig(
 # Create an MCP server
 mcp = FastMCP("corpora_search")
 
+def load_credentials_from_file(service_account_path: str):
+    """Loads Google Cloud credentials from a service account JSON file."""
+    try:
+        return service_account.Credentials.from_service_account_file(service_account_path)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Service account file not found: {service_account_path}")
+    except Exception as e:
+        raise RuntimeError(f"Error loading credentials from {service_account_path}: {e}")
+
+def get_project_id_from_file(service_account_path: str) -> str:
+    """Extracts the project_id from the service account JSON file."""
+    try:
+        with open(service_account_path, 'r') as f:
+            data = json.load(f)
+            project_id = data.get("project_id")
+            if not project_id:
+                raise ValueError("Key 'project_id' not found in service account file.")
+            return project_id
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Service account file not found: {service_account_path}")
+    except (json.JSONDecodeError, ValueError, KeyError) as e:
+        raise RuntimeError(f"Error reading project_id from {service_account_path}: {e}")
+
+SERVICE_ACCOUNT_FILE = "adam-sa.json"
+PROJECT_NAME = get_project_id_from_file(SERVICE_ACCOUNT_FILE)
+PROJECT_LOCATION = "us-central1"
+creds = load_credentials_from_file(SERVICE_ACCOUNT_FILE)
+
 # Initialize Vertex AI API
-vertexai.init(api_key=API_KEY, project=PROJECT_NAME, location=PROJECT_LOCATION)
+vertexai.init(credentials=creds, project=PROJECT_NAME, location=PROJECT_LOCATION)
 
 @mcp.tool
 def list_rag_corpora() -> Dict[str, Any]:

@@ -76,7 +76,21 @@ mcp-server/
      # Add your service-specific API keys here
      ```
 
-4. **Set up Google Cloud credentials (for corpora search):**
+4. **Create Google Cloud Service Account for Vertex AI:**
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Navigate to **IAM & Admin** > **Service Accounts**
+   - Click **Create Service Account**
+   - Provide a name (e.g., "adam-vertex-ai") and description
+   - Grant the following roles:
+     - **Vertex AI User** (`roles/aiplatform.user`)
+     - **Vertex AI Service Agent** (`roles/aiplatform.serviceAgent`)
+   - Click **Create and Continue** > **Done**
+   - In the service accounts list, click on your newly created service account
+   - Go to the **Keys** tab and click **Add Key** > **Create new key**
+   - Select **JSON** format and click **Create**
+   - Save the downloaded JSON file as `adam-sa.json` in the project root directory
+
+5. **Set up Google Cloud credentials (for corpora search):**
    - Configure Application Default Credentials via `gcloud auth application-default login`
    - Or place your service account JSON file in the project root and set the environment variable:
      ```env
