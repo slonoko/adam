@@ -10,6 +10,7 @@ from timekeeper.agent import root_agent as time_agent
 from drawer.agent import root_agent as drawer_agent
 from freshnews.agent import root_agent as news_agent
 from tradingguru.agent import root_agent as kbase_agent
+from data_analyst.agent import root_agent as data_analyst_agent
 from google.adk.tools import load_memory  # Tool to query memory
 from google.adk.planners import PlanReActPlanner
 import os
@@ -50,6 +51,7 @@ root_agent = LlmAgent(
         time_agent,
         drawer_agent,
         news_agent,
-        kbase_agent
+        kbase_agent,
+        data_analyst_agent
     ]
 )

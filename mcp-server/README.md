@@ -192,6 +192,11 @@ Deploy to Google Cloud using Cloud Build, Artifact Registry, and Cloud Run:
      --region=us-central1 \
      --no-allow-unauthenticated
    ```
+4. **Test the deployment locally:**
+```bash
+   gcloud run services proxy mcp-server --region=us-central1 
+
+```
 
 #### Deployment Verification
 
