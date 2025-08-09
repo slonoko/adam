@@ -15,7 +15,7 @@ def get_current_weather(city: str) -> dict:
     Returns:
         dict: status and result or error msg.
     """
-    return get_weather_forecast(city, datetime.datetime.now(ZoneInfo("UTC")).strftime("%Y-%m-%d"))
+    return __get_weather_forecast(city, datetime.datetime.now(ZoneInfo("UTC")).strftime("%Y-%m-%d"))
 
 @mcp.tool()
 def get_weather_forecast(city: str, date: str) -> dict:
@@ -28,6 +28,9 @@ def get_weather_forecast(city: str, date: str) -> dict:
     Returns:
         dict: status and result or error msg.
     """
+    return __get_weather_forecast(city, date)
+
+def __get_weather_forecast(city: str, date: str) -> dict:
     try:
         url = f"https://wttr.in/{city}@{date}?format=j1"
         response = requests.get(url)
