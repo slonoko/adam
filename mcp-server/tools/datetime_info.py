@@ -3,7 +3,7 @@ from zoneinfo import ZoneInfo
 from fastmcp import FastMCP
 
 # Create an MCP server
-mcp = FastMCP("timekeeper")   
+mcp = FastMCP("timekeeper", streamable_http_path="/timekeeper")   
 
 @mcp.tool
 def current_date_and_time(format:str="%A, %B %d, %Y %H:%M:%S", timezone: str="localtime") -> str:

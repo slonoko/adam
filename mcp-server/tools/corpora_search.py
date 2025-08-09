@@ -2,7 +2,7 @@ import logging
 import os
 import sys
 import vertexai
-from vertexai.preview import rag
+from vertexai import rag
 from typing import Dict, Optional, Any
 from dotenv import load_dotenv
 from fastmcp import FastMCP, Client
@@ -16,6 +16,8 @@ RAG_DEFAULT_SEARCH_TOP_K = 5  # Default number of results per corpus for search_
 RAG_DEFAULT_VECTOR_DISTANCE_THRESHOLD = 0.5
 
 API_KEY = os.getenv("GOOGLE_API_KEY")
+PROJECT_NAME = os.getenv("GOOGLE_CLOUD_PROJECT")
+PROJECT_LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION")
 
 logging.basicConfig(
     stream=sys.stdout,
@@ -28,7 +30,7 @@ logging.basicConfig(
 mcp = FastMCP("corpora_search")
 
 # Initialize Vertex AI API
-vertexai.init(api_key=API_KEY)
+vertexai.init(api_key=API_KEY, project=PROJECT_NAME, location=PROJECT_LOCATION)
 
 @mcp.tool
 def list_rag_corpora() -> Dict[str, Any]:
@@ -42,6 +44,9 @@ def list_rag_corpora() -> Dict[str, Any]:
         - count: Number of corpora found
         - error_message: Present only if an error occurred
     """
+    return __list_rag_corpora()
+
+def __list_rag_corpora() -> Dict[str, Any]:
     try:
         corpora = rag.list_corpora()
         
@@ -111,6 +116,20 @@ def query_rag_corpus(
     Returns:
         A dictionary containing the query results
     """
+
+    return __query_rag_corpus(
+        corpus_path=corpus_path,
+        query_text=query_text,
+        top_k=top_k,
+        vector_distance_threshold=vector_distance_threshold
+    )
+
+def __query_rag_corpus(
+    corpus_path: str,
+    query_text: str,
+    top_k: Optional[int] = None,
+    vector_distance_threshold: Optional[float] = None
+) -> Dict[str, Any]:
     if top_k is None:
         top_k = RAG_DEFAULT_TOP_K
     if vector_distance_threshold is None:
@@ -123,7 +142,8 @@ def query_rag_corpus(
         # Configure retrieval parameters
         retrieval_config = rag.RagRetrievalConfig(
             top_k=top_k,
-            filter=rag.utils.resources.Filter(vector_distance_threshold=vector_distance_threshold)
+            filter=rag.Filter(
+                vector_distance_threshold=vector_distance_threshold)
         )
         
         # Execute the query directly using the API
@@ -192,7 +212,7 @@ def search_all_corpora(
         vector_distance_threshold = RAG_DEFAULT_VECTOR_DISTANCE_THRESHOLD
     try:
         # First, list all available corpora
-        corpora_response = list_rag_corpora()
+        corpora_response = __list_rag_corpora()
         
         if corpora_response["status"] != "success":
             return {
@@ -215,12 +235,13 @@ def search_all_corpora(
         searched_corpora = []
         
         for corpus in all_corpora:
+            corpus_path = corpus["name"]
             corpus_id = corpus["id"]
-            corpus_name = corpus.get("display_name", corpus_id)
+            corpus_name = corpus["display_name"] or corpus["name"]
             
             # Query this corpus
-            corpus_results = query_rag_corpus(
-                corpus_path=corpus_id,
+            corpus_results = __query_rag_corpus(
+                corpus_path=corpus_path,
                 query_text=query_text,
                 top_k=top_k_per_corpus,
                 vector_distance_threshold=vector_distance_threshold

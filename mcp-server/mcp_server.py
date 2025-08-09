@@ -24,7 +24,7 @@ logging.basicConfig(
 )
 
 # Define main server
-main_mcp = FastMCP(name="AdamMCP")
+main_mcp = FastMCP(name="AdamMCP", stateless_http=True)
 
 # Import subserver
 async def setup():
@@ -38,4 +38,4 @@ async def setup():
 
 if __name__ == "__main__":
     asyncio.run(setup())
-    main_mcp.run(transport= "streamable-http", host="0.0.0.0")
+    main_mcp.run(transport= "streamable-http", host="localhost")

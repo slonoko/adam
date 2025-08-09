@@ -1,6 +1,6 @@
 # Adam MCP Server
 
-A Model Context Protocol (MCP) server that provides specialized tools for the Adam AI agents. This server exposes various financial, weather, news, and data visualization capabilities through MCP-compliant endpoints.
+A Model Context Protocol (MCP) server that provides specialized tools for the Adam AI agents. This server exposes various financial, weather, news, and data visualization capabilities through MCP-compliant HTTP-streamable endpoints.
 
 ## 🚀 Features
 
@@ -13,18 +13,6 @@ A Model Context Protocol (MCP) server that provides specialized tools for the Ad
 - **📊 Plotting Tools** - Data visualization and charting capabilities
 - **📰 News Tools** - Latest news aggregation and updates
 - **🔍 Corpora Search Tools** - Document search and retrieval using RAG
-
-### MCP Endpoints
-
-The server exposes the following SSE (Server-Sent Events) endpoints:
-
-- `/cashanova/sse` - Currency exchange tools
-- `/timekeeper/sse` - Time management tools
-- `/stockwhisperer/sse` - Stock market tools
-- `/dailydrip/sse` - Weather tools
-- `/plotter/sse` - Data visualization tools
-- `/news/sse` - News aggregation tools
-- `/corpora_search/sse` - Document search and retrieval tools
 
 ## 📁 Project Structure
 
@@ -44,8 +32,8 @@ mcp-server/
 ├── uv.lock                   # Lock file for dependencies
 ├── Dockerfile                # Container configuration
 ├── compose.yml               # Multi-container setup
-├── deployment.yaml           # Kubernetes deployment config
-├── application_default_credentials.json  # GCP credentials
+├── .env.example              # Environment variables template
+├── .gitignore                # Git ignore rules
 └── README.md                 # This file
 ```
 
@@ -71,13 +59,17 @@ mcp-server/
    ```
 
 3. **Set up environment variables:**
-   - Create a `.env` file in this directory
-   - Configure required API keys and settings:
+   - Copy the example environment file:
+     ```bash
+     cp .env.example .env
+     ```
+   - Configure required API keys and settings in `.env`:
      ```env
      # Google Cloud Configuration
      GOOGLE_CLOUD_PROJECT=your-project-id
      GOOGLE_CLOUD_LOCATION=us-central1
      GOOGLE_API_KEY=your-api-key
+     ...
      
      # External API Keys
      # Weather API keys, stock data APIs, news APIs, etc.
@@ -85,8 +77,11 @@ mcp-server/
      ```
 
 4. **Set up Google Cloud credentials (for corpora search):**
-   - Place your `application_default_credentials.json` file in the project root
-   - Or configure Application Default Credentials via `gcloud auth application-default login`
+   - Configure Application Default Credentials via `gcloud auth application-default login`
+   - Or place your service account JSON file in the project root and set the environment variable:
+     ```env
+     GOOGLE_APPLICATION_CREDENTIALS=path/to/your/service-account.json
+     ```
 
 ## 🚦 Running the Server
 
@@ -98,7 +93,7 @@ Start the MCP server:
 uv run mcp_server.py
 ```
 
-The server will be available at `http://localhost:8001` with MCP endpoints accessible via SSE.
+The server will be available at `http://localhost:8001` with MCP endpoints accessible via HTTP-streamable transport.
 
 ### Docker Deployment
 
@@ -115,18 +110,40 @@ docker run -p 8001:8000 adam-mcp-server
 docker compose up --build
 ```
 
-### Kubernetes Deployment
+## 🧪 Testing the Server
 
-Deploy to Kubernetes using the provided configuration:
+### MCP Inspector
+
+To test and interact with the MCP server during development, you can use the official MCP Inspector tool:
 
 ```bash
-# Apply the deployment configuration
-kubectl apply -f deployment.yaml
-
-# Check the deployment status
-kubectl get pods
-kubectl get services
+# Install and run the MCP Inspector
+npx @modelcontextprotocol/inspector
 ```
+
+The inspector provides a web-based interface to:
+- Connect to your running MCP server endpoints
+- Test individual tools and their parameters
+- View tool responses and debug issues
+- Validate MCP protocol compliance
+- Explore available tools and their schemas
+
+#### Using the Inspector:
+
+1. **Start your MCP server:**
+   ```bash
+   uv run mcp_server.py
+   ```
+
+2. **Launch the inspector in a new terminal:**
+   ```bash
+   npx @modelcontextprotocol/inspector
+   ```
+
+3. **Connect to your server endpoints:**
+   - Open the inspector web interface (usually at `http://localhost:5173`)
+   - Add your MCP server endpoints (e.g., `http://localhost:8001/stockwhisperer/sse`)
+   - Test individual tools with sample parameters
 
 ### Google Cloud Deployment
 
@@ -174,38 +191,38 @@ The service will be accessible at the Cloud Run service URL provided in the depl
 
 ## 🔧 Tool Details
 
-### Exchange Rate Tools (`/cashanova/sse`)
+### Exchange Rate Tools (`cashanova`)
 - Currency conversion between different currencies
 - Real-time exchange rate data
 - Financial calculations
 
-### DateTime Tools (`/timekeeper/sse`)
+### DateTime Tools (`timekeeper`)
 - Current date and time retrieval
 - Timezone-aware time operations
 - Schedule and reminder utilities
 
-### Stock Data Tools (`/stockwhisperer/sse`)
+### Stock Data Tools (`stockwhisperer`)
 - Real-time stock price data
 - Historical market data
 - Stock analysis and trends
 - Portfolio calculations
 
-### Weather Tools (`/dailydrip/sse`)
+### Weather Tools (`dailydrip`)
 - Current weather conditions
 - Weather forecasts
 - Location-based weather data
 
-### Plotting Tools (`/plotter/sse`)
+### Plotting Tools (`plotter`)
 - Chart generation (line, bar, candlestick, etc.)
 - Data visualization utilities
 - Multiple chart formats and export options
 
-### News Tools (`/news/sse`)
+### News Tools (`news`)
 - Latest news aggregation
 - Topic-specific news filtering
 - Real-time news updates
 
-### Corpora Search Tools (`/corpora_search/sse`)
+### Corpora Search Tools (`corpora_search`)
 - Document search and retrieval using Google Cloud RAG
 - Semantic search across document collections
 - Vector-based document similarity matching
@@ -215,26 +232,10 @@ The service will be accessible at the Cloud Run service URL provided in the depl
 
 This server implements the Model Context Protocol (MCP) specification:
 
-- **Protocol**: MCP over Server-Sent Events (SSE)
-- **Transport**: HTTP with SSE for real-time communication
+- **Protocol**: MCP over HTTP-streamable transport
+- **Transport**: HTTP with streaming for real-time communication
 - **Tool Discovery**: Automatic tool registration and discovery
 - **Error Handling**: Standardized MCP error responses
-
-### Client Connection
-
-Agents connect to this server using MCP client libraries:
-
-```python
-from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
-from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
-
-# Example connection to stock tools
-tools = MCPToolset(
-    connection_params=SseConnectionParams(
-        url="http://localhost:8001/stockwhisperer/sse"
-    )
-)
-```
 
 ## 🔧 Configuration
 
@@ -267,29 +268,6 @@ The server includes comprehensive logging:
 4. Include proper error handling and logging
 5. Test with MCP-compatible clients
 
-## 📄 Dependencies
-
-Key dependencies include:
-
-- `mcp[cli]` - Model Context Protocol implementation
-- `starlette` - ASGI web framework for SSE endpoints
-- `uvicorn` - ASGI server
-- `requests` - HTTP client for external APIs
-- `matplotlib` & `plotly` - Data visualization
-- `kaleido` - Static image export for Plotly
-- `google-adk` - Google ADK framework integration
-- `google-genai` - Google Generative AI client
-- `dotenv` - Environment variable management
-
-## 🆘 Troubleshooting
-
-Common issues and solutions:
-
-1. **Connection Issues**: Ensure the server is running on the correct port
-2. **Tool Errors**: Check API keys and external service availability
-3. **MCP Protocol**: Verify client is using correct MCP version
-4. **Performance**: Monitor tool execution times and optimize as needed
-
 ---
 
-Built with ❤️ using Model Context Protocol (MCP) and Starlette
+Built with ❤️ using Model Context Protocol (MCP) and HTTP-streamable transport
