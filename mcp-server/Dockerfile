@@ -20,7 +20,7 @@ RUN pip install uv
 RUN uv pip install --system -r pyproject.toml
 
 # Copy the application files
-COPY mcp_server.py ./
+COPY server.py ./
 COPY tools/ ./tools/
 
 # Create a non-root user for security
@@ -35,4 +35,4 @@ ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
 # Command to run the uvicorn server
-CMD ["uvicorn", "mcp_server:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["fastmcp", "run", "server.py:app", "--transport", "streamable-http", "--host", "0.0.0.0", "--port", "8000"]
