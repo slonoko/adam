@@ -8,6 +8,11 @@ import os
 
 load_dotenv()
 
+def custom_tool_filter(tool, readonly_context=None):
+    tool_name = tool.name if hasattr(tool, 'name') else str(tool)
+    logging.info(f"Looking for {tool}")
+    return tool_name.startswith("cs_")
+
 logging.basicConfig(
     stream=sys.stdout,
     level=logging.DEBUG,
@@ -22,5 +27,5 @@ root_agent = LlmAgent(
                  "It helps you find and retrieve information from various trading corpora."
     ),
     instruction=("Use the tools provided to search and retrieve information from the trading corpora."),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=custom_tool_filter)],
 )

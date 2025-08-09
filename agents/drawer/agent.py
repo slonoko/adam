@@ -13,6 +13,10 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+def custom_tool_filter(tool, readonly_context=None):
+    tool_name = tool.name if hasattr(tool, 'name') else str(tool)
+    logging.info(f"Looking for {tool}")
+    return tool_name.startswith("p_")
 
 root_agent = LlmAgent(
     name="drawer",
@@ -44,5 +48,5 @@ root_agent = LlmAgent(
         "Use appropriate chart types based on the data and user's needs - line charts for trends, candlesticks for detailed price analysis, "
         "histograms for distributions, heatmaps for correlations, etc."
     ),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=custom_tool_filter)],
 )

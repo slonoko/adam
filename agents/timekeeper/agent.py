@@ -8,6 +8,11 @@ import os
 
 load_dotenv()
 
+def custom_tool_filter(tool, readonly_context=None):
+    tool_name = tool.name if hasattr(tool, 'name') else str(tool)
+    logging.info(f"Looking for {tool}")
+    return tool_name.startswith("t_")
+
 logging.basicConfig(
     stream=sys.stdout,
     level=logging.DEBUG,
@@ -29,5 +34,5 @@ root_agent = LlmAgent(
         "and help manage schedules and reminders. "
         "and use the tool if certain words are mentioned in the user input, such as today, tomorrow, yesterday, now, current time, current date, schedule, reminder, etc. "
     ),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=custom_tool_filter)],
 )

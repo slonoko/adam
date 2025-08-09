@@ -14,6 +14,10 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+def custom_tool_filter(tool, readonly_context=None):
+    tool_name = tool.name if hasattr(tool, 'name') else str(tool)
+    logging.info(f"Looking for {tool}")
+    return tool_name.startswith("s_")
 
 root_agent = LlmAgent(
     name="StockWhisperer",
@@ -31,5 +35,5 @@ root_agent = LlmAgent(
         "You can provide real-time stock data, market analysis, and personalized financial recommendations. "
         "You will use specialized tools to retrieve this information."
     ),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=custom_tool_filter)],
 )

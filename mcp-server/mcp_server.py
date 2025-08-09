@@ -24,18 +24,18 @@ logging.basicConfig(
 )
 
 # Define main server
-main_mcp = FastMCP(name="AdamMCP", stateless_http=True)
+app = FastMCP(name="AdamMCP", stateless_http=True)
 
 # Import subserver
 async def setup():
-    await main_mcp.import_server(cashanova_mcp, prefix="c")
-    await main_mcp.import_server(datetime_mcp, prefix="t")
-    await main_mcp.import_server(stocks_data_mcp, prefix="s")
-    await main_mcp.import_server(weather_mcp, prefix="d")
-    await main_mcp.import_server(plotter_mcp, prefix="p")
-    await main_mcp.import_server(news_mcp, prefix="n")
-    await main_mcp.import_server(corpus_tools, prefix="cs")
+    await app.import_server(cashanova_mcp, prefix="c")
+    await app.import_server(datetime_mcp, prefix="t")
+    await app.import_server(stocks_data_mcp, prefix="s")
+    await app.import_server(weather_mcp, prefix="d")
+    await app.import_server(plotter_mcp, prefix="p")
+    await app.import_server(news_mcp, prefix="n")
+    await app.import_server(corpus_tools, prefix="cs")
 
 if __name__ == "__main__":
     asyncio.run(setup())
-    main_mcp.run(transport= "streamable-http", host="localhost")
+    app.run(transport= "streamable-http", host="localhost")

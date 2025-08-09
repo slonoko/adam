@@ -14,6 +14,10 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+def custom_tool_filter(tool, readonly_context=None):
+    tool_name = tool.name if hasattr(tool, 'name') else str(tool)
+    logging.info(f"Looking for {tool}")
+    return tool_name.startswith("n_")
 
 root_agent = LlmAgent(
     name="freshnews",
@@ -28,5 +32,5 @@ root_agent = LlmAgent(
         "You can provide real-time news updates, article summaries, and personalized content recommendations. "
         "When asked about current events, trends, or specific topics, use the tools available to fetch the latest information. "
     ),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=custom_tool_filter)],
 )
