@@ -12,6 +12,7 @@ def custom_tool_filter(tool, readonly_context=None):
     tool_name = tool.name if hasattr(tool, 'name') else str(tool)
     logging.info(f"Looking for {tool}")
     return tool_name.startswith("t_")
+logging.getLogger("google_adk.google.adk.tools.base_authenticated_tool").setLevel(logging.ERROR)
 
 logging.basicConfig(
     stream=sys.stdout,

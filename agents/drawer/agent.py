@@ -12,6 +12,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
+logging.getLogger("google_adk.google.adk.tools.base_authenticated_tool").setLevel(logging.ERROR)
 
 def custom_tool_filter(tool, readonly_context=None):
     tool_name = tool.name if hasattr(tool, 'name') else str(tool)

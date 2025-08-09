@@ -20,6 +20,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
+logging.getLogger("google_adk.google.adk.tools.base_authenticated_tool").setLevel(logging.ERROR)
 
 logging.debug("ClocknStock agent initialized with model: %s", os.getenv("MODEL_NAME", ""))
 
@@ -37,7 +38,8 @@ root_agent = LlmAgent(
         "You are a multi-functional assistant. "
         "You can retrieve stock data, weather updates, currency exchange rates, current time information, create charts, and news updates. "
         "You will coordinate with specialized agents to provide these services. "
-        "When asked for a investment advice, use the tradingguru agent at the end to validate your response. "
+        "When asked for a investment advice, use the tradingguru agent at the end to validate your response."
+        "When exchanging data with other agents, make sure that the maximum number of tokens allowed (1048576)"
     ),
     planner=PlanReActPlanner(),
     tools=[load_memory],
