@@ -37,6 +37,7 @@ def setup():
     app.mount(news_mcp, prefix="n")
     app.mount(corpus_tools, prefix="cs")
 
+setup()
+
 if __name__ == "__main__":
-    setup()
     app.run(transport= "streamable-http", host="0.0.0.0")
