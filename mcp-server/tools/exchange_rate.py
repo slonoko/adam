@@ -64,3 +64,37 @@ def convert(
         raise ValueError(
             f"Error converting {amount} {from_currency} to {to_currency}: {response.text}"
         )
+    
+@mcp.tool
+def get_supported_currencies() -> list:
+        """
+        Get list of all supported currencies.
+        Returns:
+            list: List of supported currency codes.
+        """
+        response = requests.get(f"{api_url}/codes")
+        if response.status_code == 200:
+            return [code[0] for code in response.json().get("supported_codes", [])]
+        return []
+
+@mcp.tool
+def bulk_convert(amount: float, from_currency: str, target_currencies: list) -> dict:
+        """
+        Convert amount to multiple target currencies at once.
+        Args:
+            amount (float): Amount to convert.
+            from_currency (str): Source currency.
+            target_currencies (list): List of target currency codes.
+        Returns:
+            dict: Conversion results for all target currencies.
+        """
+        response = requests.get(f"{api_url}/latest/{from_currency}")
+        if response.status_code == 200:
+            rates = response.json().get("conversion_rates", {})
+        else:
+            rates = {}
+        results = {}
+        for currency in target_currencies:
+            if currency in rates:
+                results[currency] = amount * rates[currency]
+        return results
