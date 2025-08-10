@@ -95,4 +95,3 @@ The repository includes a Terraform configuration for the setup of a production 
 
 The application uses OpenTelemetry for comprehensive observability with all events being sent to Google Cloud Trace and Logging for monitoring and to BigQuery for long term storage.
 
-make backend --service-account adam-agent --set-env-vars GOOGLE_API_KEY=AIzaSyBGxpYBB2FbooWPyrhgsiyGBs2QwkrSceQ,mcp_server_url=https://mcp-server-186919647719.us-central1.run.app,MODEL_NAME=gemini-2.5-flash
