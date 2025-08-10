@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "agents"
+		},
+		{
+			"path": "agents/agent-timekeeper"
 		}
 	],
 	"settings": {}
