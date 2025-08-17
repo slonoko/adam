@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "agents/agent-timekeeper"
+		},
+		{
+			"path": "agents/agent-cashanova"
 		}
 	],
 	"settings": {}

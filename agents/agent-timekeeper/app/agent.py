@@ -47,7 +47,7 @@ def make_authorized_get_request(audience):
 
 
 id_token = make_authorized_get_request(
-    "https://mcp-server-186919647719.us-central1.run.app/"
+    os.environ.get("mcp_server_url")
 )
 auth_cred = AuthCredential(
     auth_type=AuthCredentialTypes.HTTP,
