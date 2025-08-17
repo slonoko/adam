@@ -13,6 +13,7 @@ dependencies = [
     "google-adk>=1.9.0",
     "vertexai>=1.43.0",
     "google-auth>=2.40.3",
+    "urllib3>=2.5.0",
 ]
 
 requires-python = ">=3.13"
