@@ -14,6 +14,7 @@ from data_analyst.agent import root_agent as data_analyst_agent
 from google.adk.tools import load_memory  # Tool to query memory
 from google.adk.planners import PlanReActPlanner
 import os
+
 load_dotenv()
 logging.basicConfig(
     stream=sys.stdout,
