@@ -9,7 +9,7 @@ from stockwhisperer.agent import root_agent as stock_agent
 from timekeeper.agent import root_agent as time_agent
 from drawer.agent import root_agent as drawer_agent
 from freshnews.agent import root_agent as news_agent
-from tradingguru.agent import root_agent as kbase_agent
+#from tradingguru.agent import root_agent as kbase_agent
 from data_analyst.agent import root_agent as data_analyst_agent
 from google.adk.tools import load_memory  # Tool to query memory
 from google.adk.planners import PlanReActPlanner
@@ -26,7 +26,7 @@ logging.getLogger("google_adk.google.adk.tools.base_authenticated_tool").setLeve
 logging.debug("ClocknStock agent initialized with model: %s", os.getenv("MODEL_NAME", ""))
 
 root_agent = LlmAgent(
-    name="ClocknStock",
+    name="clocknstock",
     model= os.getenv("MODEL_NAME",""), # LiteLlm(model="ollama/gemma3:latest")
     description=(
         "Clock & Stock – Ticking time, trading tips, and thunderous weather 🌤️⏰. "
@@ -51,7 +51,7 @@ root_agent = LlmAgent(
         time_agent,
         drawer_agent,
         news_agent,
-        kbase_agent,
+        #kbase_agent,
         data_analyst_agent
     ]
 )
