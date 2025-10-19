@@ -5,6 +5,7 @@ import sys
 import os
 from google.adk.tools import google_search
 from . import prompt
+from google.adk.models.lite_llm import LiteLlm
 
 load_dotenv()
 
@@ -17,7 +18,7 @@ logging.basicConfig(
 
 root_agent = LlmAgent(
     name="data_analyst_agent",
-    model=os.getenv("MODEL_NAME", ""),
+    model=LiteLlm(model=os.environ["MODEL_NAME"]) if os.environ["MODEL_NAME"].startswith("ollama") else os.environ["MODEL_NAME"],
     description=("The Data Analyst – Your personal assistant for data analysis 📊. "
                  "It provides insights and information about market trends, "
                  "and can help you analyze stock performance and financial data."

@@ -5,6 +5,7 @@ import sys
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 import os
+from google.adk.models.lite_llm import LiteLlm
 
 load_dotenv()
 
@@ -23,7 +24,7 @@ logging.getLogger("google_adk.google.adk.tools.base_authenticated_tool").setLeve
 
 root_agent = LlmAgent(
     name="tradingguru",
-    model=os.getenv("MODEL_NAME", ""),
+    model=LiteLlm(model=os.environ["MODEL_NAME"]) if os.environ["MODEL_NAME"].startswith("ollama") else os.environ["MODEL_NAME"],
     description=("The Trading Guru – Your personal assistant for trading insights 📈🤖. "
                  "It helps you find and retrieve information from various trading corpora."
     ),

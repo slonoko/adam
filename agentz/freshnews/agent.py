@@ -22,7 +22,7 @@ def custom_tool_filter(tool, readonly_context=None):
 
 root_agent = LlmAgent(
     name="freshnews",
-    model=os.getenv("MODEL_NAME", ""),
+    model=LiteLlm(model=os.environ["MODEL_NAME"]) if os.environ["MODEL_NAME"].startswith("ollama") else os.environ["MODEL_NAME"],
     description=(
         "FreshNews is your go-to source for the latest news and insights. "
         "Stay updated with real-time information from various domains, including technology, health, and finance. "

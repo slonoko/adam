@@ -26,7 +26,7 @@ def custom_tool_filter(tool, readonly_context=None):
 
 root_agent = LlmAgent(
     name="Cashanova",
-    model=os.getenv("MODEL_NAME", ""), # LiteLlm(model="ollama/gemma3n:latest")
+    model=LiteLlm(model=os.environ["MODEL_NAME"]) if os.environ["MODEL_NAME"].startswith("ollama") else os.environ["MODEL_NAME"],
     description=(
         "Smooth with the money 💸. "
         "Can retrieve exchange rates, and convert from one currency to another."

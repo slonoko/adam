@@ -22,7 +22,7 @@ def custom_tool_filter(tool, readonly_context=None):
 
 root_agent = LlmAgent(
     name="StockWhisperer",
-    model=os.getenv("MODEL_NAME", ""),
+    model=LiteLlm(model=os.environ["MODEL_NAME"]) if os.environ["MODEL_NAME"].startswith("ollama") else os.environ["MODEL_NAME"],
     description=("The Stock Whisperer – Speaks fluent bull and bear 🐂🐻. "
                     "An AI-powered stockbroker that provides real-time data access, "
                     "market analysis, and personalized financial recommendations. "

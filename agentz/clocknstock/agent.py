@@ -14,6 +14,8 @@ from data_analyst.agent import root_agent as data_analyst_agent
 from google.adk.tools import load_memory  # Tool to query memory
 from google.adk.planners import PlanReActPlanner
 import os
+from google.adk.models.lite_llm import LiteLlm
+
 load_dotenv()
 logging.basicConfig(
     stream=sys.stdout,
@@ -27,7 +29,7 @@ logging.debug("ClocknStock agent initialized with model: %s", os.getenv("MODEL_N
 
 root_agent = LlmAgent(
     name="clocknstock",
-    model= os.getenv("MODEL_NAME",""), # LiteLlm(model="ollama/gemma3:latest")
+    model=LiteLlm(model=os.environ["MODEL_NAME"]) if os.environ["MODEL_NAME"].startswith("ollama") else os.environ["MODEL_NAME"],
     description=(
         "Clock & Stock – Ticking time, trading tips, and thunderous weather 🌤️⏰. "
         "Your all-in-one assistant, I coordinate with specialized agents to provide "

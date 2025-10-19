@@ -25,7 +25,7 @@ def custom_tool_filter(tool, readonly_context=None):
 
 root_agent = LlmAgent(
     name="DailyDrip",
-    model=os.getenv("MODEL_NAME", ""),
+    model=LiteLlm(model=os.environ["MODEL_NAME"]) if os.environ["MODEL_NAME"].startswith("ollama") else os.environ["MODEL_NAME"],
     description=("The Daily Drip – For that slow, steady weather tea"
                  " that keeps you informed and ready for the day ahead."
                  " It provides daily weather updates, forecasts, and current conditions"
