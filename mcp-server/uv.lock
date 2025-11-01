@@ -1,38 +1,9 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
     "python_full_version < '3.13'",
-]
-
-[[package]]
-name = "adam-tools"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "dotenv" },
-    { name = "fastmcp" },
-    { name = "google-cloud-aiplatform" },
-    { name = "kaleido" },
-    { name = "matplotlib" },
-    { name = "plotly" },
-    { name = "requests" },
-    { name = "starlette" },
-    { name = "uvicorn" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "dotenv", specifier = ">=0.9.9" },
-    { name = "fastmcp", specifier = ">=2.11.2" },
-    { name = "google-cloud-aiplatform", specifier = ">=1.107.0" },
-    { name = "kaleido", specifier = ">=1.0.0" },
-    { name = "matplotlib", specifier = ">=3.10.3" },
-    { name = "plotly", specifier = ">=6.2.0" },
-    { name = "requests", specifier = ">=2.32.3" },
-    { name = "starlette", specifier = ">=0.46.2" },
-    { name = "uvicorn", specifier = ">=0.35.0" },
 ]
 
 [[package]]
@@ -1002,6 +973,35 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/4d/19/9955e2df5384ff5dd25d38f8e88aaf89d2d3d9d39f27e7383eaf0b293836/mcp-1.12.3.tar.gz", hash = "sha256:ab2e05f5e5c13e1dc90a4a9ef23ac500a6121362a564447855ef0ab643a99fed", size = 427203, upload-time = "2025-07-31T18:36:36.795Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8f/8b/0be74e3308a486f1d127f3f6767de5f9f76454c9b4183210c61cc50999b6/mcp-1.12.3-py3-none-any.whl", hash = "sha256:5483345bf39033b858920a5b6348a303acacf45b23936972160ff152107b850e", size = 158810, upload-time = "2025-07-31T18:36:34.915Z" },
+]
+
+[[package]]
+name = "mcp-server"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "dotenv" },
+    { name = "fastmcp" },
+    { name = "google-cloud-aiplatform" },
+    { name = "kaleido" },
+    { name = "matplotlib" },
+    { name = "plotly" },
+    { name = "requests" },
+    { name = "starlette" },
+    { name = "uvicorn" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "dotenv", specifier = ">=0.9.9" },
+    { name = "fastmcp", specifier = ">=2.11.2" },
+    { name = "google-cloud-aiplatform", specifier = ">=1.107.0" },
+    { name = "kaleido", specifier = ">=1.0.0" },
+    { name = "matplotlib", specifier = ">=3.10.3" },
+    { name = "plotly", specifier = ">=6.2.0" },
+    { name = "requests", specifier = ">=2.32.3" },
+    { name = "starlette", specifier = ">=0.46.2" },
+    { name = "uvicorn", specifier = ">=0.35.0" },
 ]
 
 [[package]]

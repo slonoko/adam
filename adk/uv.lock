@@ -12,7 +12,7 @@ wheels = [
 ]
 
 [[package]]
-name = "adam"
+name = "adk"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
