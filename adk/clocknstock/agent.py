@@ -55,5 +55,5 @@ root_agent = LlmAgent(
         news_agent,
         #kbase_agent,
         data_analyst_agent
-    ]
+    ],
 )

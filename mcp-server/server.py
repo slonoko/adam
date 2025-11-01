@@ -33,9 +33,9 @@ def setup():
     app.mount(datetime_mcp, prefix="t")
     app.mount(stocks_data_mcp, prefix="s")
     app.mount(weather_mcp, prefix="d")
-    app.mount(plotter_mcp, prefix="p")
+    # app.mount(plotter_mcp, prefix="p")
     app.mount(news_mcp, prefix="n")
-    #app.mount(corpus_tools, prefix="cs")
+    # app.mount(corpus_tools, prefix="cs")
 
 setup()
 

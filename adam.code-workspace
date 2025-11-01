@@ -4,7 +4,10 @@
 			"path": "mcp-server"
 		},
 		{
-			"path": "agentz"
+			"path": "langgraph"
+		},
+		{
+			"path": "adk"
 		}
 	],
 	"settings": {}

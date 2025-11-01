@@ -1,0 +1,1 @@
+I bought 500 nvidia shares on 10th October 2019. what would be the number now and their value back then and now in euro. account for share split and merge
