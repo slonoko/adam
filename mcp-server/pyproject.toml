@@ -1,5 +1,5 @@
 [project]
-name = "adam-tools"
+name = "mcp-server"
 version = "0.1.0"
 description = "Tools that can be used by the Adam agents"
 readme = "README.md"
