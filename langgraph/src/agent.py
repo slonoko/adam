@@ -63,6 +63,13 @@ datetime_tool = [tool for tool in tools if tool.name.startswith("t_")]
 stocks_data_tool = [tool for tool in tools if tool.name.startswith("s_")]
 weather_tool = [tool for tool in tools if tool.name.startswith("d_")]
 news_tool = [tool for tool in tools if tool.name.startswith("n_")]
+plotter_tool = [tool for tool in tools if tool.name.startswith("p_")]
+
+plotter_agent = create_agent(
+    model=llm,
+    tools=plotter_tool,
+    system_prompt="You are a data visualization assistant. You can create various types of plots and charts based on user data and requirements."
+)
 
 cashanova_agent = create_agent(
     model=llm,
@@ -131,6 +138,12 @@ async def call_news_agent(query: str) -> str:
     response = await news_agent.ainvoke({"messages": [HumanMessage(content=query)]})
     return response["messages"][-1].content
 
+@tool
+async def call_plotter_agent(query: str) -> str:
+    """Call the plotter agent for data visualization."""
+    response = await plotter_agent.ainvoke({"messages": [HumanMessage(content=query)]})
+    return response["messages"][-1].content
+
 # Create the main agent with subagent tools
 subagent_tools = [
     call_cashanova_agent,
@@ -138,6 +151,7 @@ subagent_tools = [
     call_stocks_data_agent,
     call_weather_agent,
     call_news_agent,
+    # call_plotter_agent,
 ]
 
 agent = create_agent(

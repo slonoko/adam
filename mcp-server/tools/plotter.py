@@ -10,8 +10,8 @@ mcp = FastMCP("plotter")
 
 @mcp.tool()
 def plot_chart(
-    x_values: List[Union[str, int, float]],
-    y_values: List[Union[int, float]],
+    x_values= [Union[str, int, float]],
+    y_values= [Union[int, float]],
     chart_type: str = "line",
     title: str = "Chart",
     x_label: str = "X-axis",
@@ -83,8 +83,8 @@ def plot_chart(
 
 @mcp.tool()
 def create_line_chart(
-    x_values: List[Union[str, int, float]],
-    y_values: List[Union[int, float]],
+    x_values= [Union[str, int, float]],
+    y_values= [Union[int, float]],
     title: str = "Line Chart",
     x_label: str = "X-axis",
     y_label: str = "Y-axis",
@@ -134,8 +134,8 @@ def create_line_chart(
 
 @mcp.tool()
 def create_bar_chart(
-    x_values: List[Union[str, int, float]],
-    y_values: List[Union[int, float]],
+    x_values= [Union[str, int, float]],
+    y_values= [Union[int, float]],
     title: str = "Bar Chart",
     x_label: str = "X-axis",
     y_label: str = "Y-axis",
@@ -184,8 +184,8 @@ def create_bar_chart(
 
 @mcp.tool()
 def create_scatter_plot(
-    x_values: List[Union[int, float]],
-    y_values: List[Union[int, float]],
+    x_values=[Union[int, float]],
+    y_values=[Union[int, float]],
     title: str = "Scatter Plot",
     x_label: str = "X-axis",
     y_label: str = "Y-axis",
@@ -237,7 +237,7 @@ def create_scatter_plot(
 
 @mcp.tool()
 def create_histogram(
-    values: List[Union[int, float]],
+    values= [Union[int, float]],
     bins: int = 20,
     title: str = "Histogram",
     x_label: str = "Value",
@@ -284,8 +284,8 @@ def create_histogram(
 
 @mcp.tool()
 def create_pie_chart(
-    labels: List[str],
-    values: List[Union[int, float]],
+    labels= [str],
+    values= [Union[int, float]],
     title: str = "Pie Chart",
     width: int = 800,
     height: int = 600
@@ -325,8 +325,8 @@ def create_pie_chart(
 
 @mcp.tool()
 def create_multi_line_chart(
-    x_values: List[Union[str, int, float]],
-    y_series: Dict[str, List[Union[int, float]]],
+    x_values= [Union[str, int, float]],
+    y_series= [str, [Union[int, float]]],
     title: str = "Multi-Line Chart",
     x_label: str = "X-axis",
     y_label: str = "Y-axis",
@@ -374,11 +374,11 @@ def create_multi_line_chart(
 
 @mcp.tool()
 def create_candlestick_chart(
-    dates: List[str],
-    open_prices: List[float],
-    high_prices: List[float],
-    low_prices: List[float],
-    close_prices: List[float],
+    dates= [str],
+    open_prices= [float],
+    high_prices= [float],
+    low_prices= [float],
+    close_prices= [float],
     title: str = "Candlestick Chart",
     width: int = 800,
     height: int = 600
@@ -427,7 +427,7 @@ def create_candlestick_chart(
 
 @mcp.tool()
 def create_heatmap(
-    z_values: List[List[Union[int, float]]],
+    z_values= [List[Union[int, float]]],
     x_labels: Optional[List[str]] = None,
     y_labels: Optional[List[str]] = None,
     title: str = "Heatmap",
@@ -471,7 +471,7 @@ def create_heatmap(
 
 @mcp.tool()
 def create_box_plot(
-    values: List[Union[int, float]],
+    values= [Union[int, float]],
     title: str = "Box Plot",
     y_label: str = "Values",
     box_color: str = "blue",
@@ -512,8 +512,8 @@ def create_box_plot(
 
 @mcp.tool()
 def create_custom_chart(
-    x_values: List[Union[str, int, float]],
-    y_values: List[Union[int, float]],
+    x_values= [Union[str, int, float]],
+    y_values= [Union[int, float]],
     chart_type: str = "line",
     title: str = "Custom Chart",
     x_label: str = "X-axis",
