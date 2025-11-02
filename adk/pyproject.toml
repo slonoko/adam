@@ -8,6 +8,7 @@ dependencies = [
     "cloudpickle>=3.1.1",
     "dill>=0.4.0",
     "dotenv>=0.9.9",
+    "google-adk>=1.17.0",
     "google-cloud-aiplatform[adk,agent-engines]>=1.124.0",
     "litellm>=1.78.4",
     "matplotlib>=3.10.3",
