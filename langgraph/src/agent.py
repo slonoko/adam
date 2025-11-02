@@ -145,9 +145,3 @@ agent = create_agent(
     tools=subagent_tools,
     system_prompt=SYSTEM_PROMPT,
 )
-
-# response = await agent.ainvoke(
-#     {"messages": [{"role": "user", "content": "I bought back on 15.11.2019, 500 nvidia shares . what would be their current value now in euros, and how much i payed when i bought them?"}]}, # 
-# )
-
-# print("Response:\n\n", response)

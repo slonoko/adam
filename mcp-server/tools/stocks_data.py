@@ -81,6 +81,27 @@ def get_daily_data(symbol: str, output_size: str = "compact"):
     return _make_request(params)
 
 @mcp.tool()
+def get_historical_data(symbol: str, date: str):
+    """
+    Fetch historical stock data for a specific date.
+    :param symbol: Stock symbol (e.g., 'AAPL').
+    :param date: Date in YYYY-MM-DD format. example: 2025-10-31
+    :return: JSON response.
+    """
+    params = {
+        "function": "TIME_SERIES_DAILY",
+        "symbol": symbol,
+        "outputsize": "full",
+    }
+    data = _make_request(params)
+
+    time_series = data.get("Time Series (Daily)", {})
+    historical_data = time_series.get(date, {})
+
+    return {date: historical_data} if historical_data else {date: {}}
+
+
+@mcp.tool()
 def get_weekly_data(symbol: str):
     """
     Fetch weekly stock data.
