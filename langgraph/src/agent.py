@@ -102,33 +102,33 @@ news_agent = create_agent(
 )
 
 @tool
-def call_cashanova_agent(query: str) -> str:
+async def call_cashanova_agent(query: str) -> str:
     """Call the cashanova agent for currency exchange and financial calculations."""
-    response = cashanova_agent.invoke({"messages": [HumanMessage(content=query)]})
+    response = await cashanova_agent.ainvoke({"messages": [HumanMessage(content=query)]})
     return response["messages"][-1].content
 
 @tool
-def call_datetime_agent(query: str) -> str:
+async def call_datetime_agent(query: str) -> str:
     """Call the datetime agent for date and time-related queries."""
-    response = datetime_agent.invoke({"messages": [HumanMessage(content=query)]})
+    response = await datetime_agent.ainvoke({"messages": [HumanMessage(content=query)]})
     return response["messages"][-1].content
 
 @tool
-def call_stocks_data_agent(query: str) -> str:
+async def call_stocks_data_agent(query: str) -> str:
     """Call the stocks data agent for stock market information."""
-    response = stocks_data_agent.invoke({"messages": [HumanMessage(content=query)]})
+    response = await stocks_data_agent.ainvoke({"messages": [HumanMessage(content=query)]})
     return response["messages"][-1].content
 
 @tool
-def call_weather_agent(query: str) -> str:
+async def call_weather_agent(query: str) -> str:
     """Call the weather agent for weather information."""
-    response = weather_agent.invoke({"messages": [HumanMessage(content=query)]})
+    response = await weather_agent.ainvoke({"messages": [HumanMessage(content=query)]})
     return response["messages"][-1].content
 
 @tool
-def call_news_agent(query: str) -> str:
+async def call_news_agent(query: str) -> str:
     """Call the news agent for news updates."""
-    response = news_agent.invoke({"messages": [HumanMessage(content=query)]})
+    response = await news_agent.ainvoke({"messages": [HumanMessage(content=query)]})
     return response["messages"][-1].content
 
 # Create the main agent with subagent tools
@@ -146,7 +146,7 @@ agent = create_agent(
     system_prompt=SYSTEM_PROMPT,
 )
 
-# response = agent.invoke(
+# response = await agent.ainvoke(
 #     {"messages": [{"role": "user", "content": "I bought back on 15.11.2019, 500 nvidia shares . what would be their current value now in euros, and how much i payed when i bought them?"}]}, # 
 # )
 
