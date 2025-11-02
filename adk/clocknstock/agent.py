@@ -15,6 +15,7 @@ from google.adk.tools import load_memory  # Tool to query memory
 from google.adk.planners import PlanReActPlanner
 import os
 from google.adk.models.lite_llm import LiteLlm
+import warnings
 
 load_dotenv()
 logging.basicConfig(
@@ -26,6 +27,9 @@ logging.basicConfig(
 logging.getLogger("google_adk.google.adk.tools.base_authenticated_tool").setLevel(logging.ERROR)
 
 logging.debug("ClocknStock agent initialized with model: %s", os.getenv("MODEL_NAME", ""))
+
+# Suppress Pydantic validation for arbitrary types used internally
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 root_agent = LlmAgent(
     name="clocknstock",
@@ -51,7 +55,7 @@ root_agent = LlmAgent(
         weather_agent,
         stock_agent,
         time_agent,
-        drawer_agent,
+        #drawer_agent,
         news_agent,
         #kbase_agent,
         data_analyst_agent

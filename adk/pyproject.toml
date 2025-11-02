@@ -3,18 +3,14 @@ name = "adk"
 version = "0.1.0"
 description = "Adam assistant, a personal assistant for your daily tasks"
 readme = "README.md"
-requires-python = "==3.10.*"
+requires-python = "==3.13.*"
 dependencies = [
     "cloudpickle>=3.1.1",
     "dill>=0.4.0",
     "dotenv>=0.9.9",
-    "google-adk>=1.16.0",
-    "google-cloud-aiplatform[adk,agent-engines]>=1.121.0",
-    "google-genai>=1.45.0",
+    "google-cloud-aiplatform[adk,agent-engines]>=1.124.0",
     "litellm>=1.78.4",
     "matplotlib>=3.10.3",
-    "mcp[cli]>=1.18.0",
     "plotly>=6.3.1",
     "requests>=2.32.5",
-    "toml-to-requirements>=0.3.0",
 ]
