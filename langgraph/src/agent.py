@@ -1,6 +1,5 @@
 from langchain.agents import create_agent
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
 import os
 import logging
@@ -31,10 +30,6 @@ llm = ChatGoogleGenerativeAI(
     google_api_key=os.getenv("GOOGLE_API_KEY"),
     temperature=0.7
 )
-
-# llm = AzureChatOpenAI(
-#     azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME"),
-# )
 
 SYSTEM_PROMPT = """ You are a multi-functional assistant.
                     You can retrieve stock data, weather updates, currency exchange rates, current date and time information, create charts, and news updates.
