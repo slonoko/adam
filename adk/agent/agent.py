@@ -72,16 +72,16 @@ news_agent = LlmAgent(
     tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("n_") if hasattr(tool, 'name') else str(tool).startswith("n_"))],
 )
 
-data_analyst_agent = LlmAgent(
-    name="DataAnalystAgent",
+google_search_agent = LlmAgent(
+    name="GoogleSearchAgent",
     model=get_model(),
-    description=(instructions.DATA_ANALYST_DESCRIPTION),
-    instruction=(instructions.DATA_ANALYST_INSTRUCTION),
+    description=(instructions.GOOGLE_SEARCH_DESCRIPTION),
+    instruction=(instructions.GOOGLE_SEARCH_INSTRUCTION),
     tools=[google_search]
 )
 
 root_agent = LlmAgent(
-    name="clocknstock",
+    name="MrKnowItAll",
     model=get_model(),
     description=(instructions.CLOCKNSTOCK_DESCRIPTION),
     instruction=(instructions.CLOCKNSTOCK_INSTRUCTION),
@@ -93,6 +93,5 @@ root_agent = LlmAgent(
         stock_agent,
         time_agent,
         news_agent,
-        data_analyst_agent
     ],
 )

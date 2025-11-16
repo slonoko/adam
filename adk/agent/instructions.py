@@ -25,7 +25,7 @@ You will use specialized tools to retrieve this information.\
 """
 
 # Data Analyst Agent - Market Analysis Assistant
-DATA_ANALYST_INSTRUCTION = """
+GOOGLE_SEARCH_INSTRUCTION = """
 Agent Role: data_analyst
 Tool Usage: Exclusively use the Google Search tool.
 
@@ -159,9 +159,11 @@ DAILYDRIP_DESCRIPTION = """The Daily Drip – For that slow, steady weather tea\
  It provides daily weather updates, forecasts, and current conditions\
  to help you plan your day with confidence."""
 
-DATA_ANALYST_DESCRIPTION = """The Data Analyst – Your personal assistant for data analysis 📊. \
-It provides insights and information about market trends, \
-and can help you analyze stock performance and financial data."""
+GOOGLE_SEARCH_DESCRIPTION = """The Data Analyst – Your market intelligence specialist 📊🔍. \
+Uses Google Search to gather comprehensive, real-time market analysis and financial intelligence. \
+It performs iterative searches to collect recent SEC filings, financial news, analyst opinions, \
+and market sentiment to synthesize structured reports on any given stock ticker. \
+Perfect for in-depth research and data-driven investment insights."""
 
 DRAWER_DESCRIPTION = """A specialized data visualization assistant that has plotting and charting capabilities. \
 This agent can provide professional-quality visualizations to illustrate the data and insights."""
