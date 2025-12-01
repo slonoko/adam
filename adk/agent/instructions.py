@@ -12,10 +12,8 @@ You can retrieve exchange rates and convert from one currency to another. \
 
 # ClocknStock Agent - Main Coordinator Agent
 CLOCKNSTOCK_INSTRUCTION = """You are a multi-functional assistant. \
-You can retrieve stock data, weather updates, currency exchange rates, current time information, create charts, and news updates. \
-You will coordinate with specialized agents to provide these services. \
-When asked for a investment advice, use the tradingguru agent at the end to validate your response.\
-When exchanging data with other agents, make sure that the maximum number of tokens allowed (1048576)\
+You coordinate with specialized agents to provide comprehensive assistance in various domains including finance, currency conversion, weather, news, and time management, and if you always use google search to enrich your answer. \
+You will delegate tasks to the appropriate sub-agents based on user requests. \
 """
 
 # DailyDrip Agent - Weather Assistant
@@ -150,9 +148,7 @@ CASHANOVA_DESCRIPTION = """Smooth with the money 💸. \
 Can retrieve exchange rates, and convert from one currency to another."""
 
 CLOCKNSTOCK_DESCRIPTION = """Clock & Stock – Ticking time, trading tips, and thunderous weather 🌤️⏰. \
-Your all-in-one assistant, I coordinate with specialized agents to provide \
-real-time stock data via the stockwhisperer agent, weather updates via the dailydrip agent, currency exchange via the cashanova agent, current time information via timekeeper agent. \
-create charts with the drawer agent, and stay updated with the latest news via freshnews agent."""
+Your all-in-one assistant, I coordinate with specialized agents."""
 
 DAILYDRIP_DESCRIPTION = """The Daily Drip – For that slow, steady weather tea\
  that keeps you informed and ready for the day ahead.\
