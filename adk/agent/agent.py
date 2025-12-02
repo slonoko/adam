@@ -37,7 +37,7 @@ broker_agent = LlmAgent(
     model=get_model(),
     description=(instructions.CASHANOVA_DESCRIPTION),
     instruction=(instructions.CASHANOVA_INSTRUCTION),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("c_") if hasattr(tool, 'name') else str(tool).startswith("c_"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("c_") if hasattr(tool, 'name') else str(tool).startswith("c_")),load_memory],
 )
 
 weather_agent = LlmAgent(
@@ -45,7 +45,7 @@ weather_agent = LlmAgent(
     model=get_model(),
     description=(instructions.DAILYDRIP_DESCRIPTION),
     instruction=(instructions.DAILYDRIP_INSTRUCTION),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("d_") if hasattr(tool, 'name') else str(tool).startswith("d_"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("d_") if hasattr(tool, 'name') else str(tool).startswith("d_")),load_memory],
 )
 
 stock_agent = LlmAgent(
@@ -53,7 +53,7 @@ stock_agent = LlmAgent(
     model=get_model(),
     description=(instructions.STOCKWHISPERER_DESCRIPTION),
     instruction=(instructions.STOCKWHISPERER_INSTRUCTION),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("s_") if hasattr(tool, 'name') else str(tool).startswith("s_"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("s_") if hasattr(tool, 'name') else str(tool).startswith("s_")),load_memory],
 )
 
 time_agent = LlmAgent(
@@ -61,7 +61,7 @@ time_agent = LlmAgent(
     model=get_model(),
     description=(instructions.TIMEKEEPER_DESCRIPTION),
     instruction=(instructions.TIMEKEEPER_INSTRUCTION),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("t_") if hasattr(tool, 'name') else str(tool).startswith("t_"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("t_") if hasattr(tool, 'name') else str(tool).startswith("t_")),load_memory],
 )
 
 news_agent = LlmAgent(
@@ -69,7 +69,7 @@ news_agent = LlmAgent(
     model=get_model(),
     description=(instructions.FRESHNEWS_DESCRIPTION),
     instruction=(instructions.FRESHNEWS_INSTRUCTION),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("n_") if hasattr(tool, 'name') else str(tool).startswith("n_"))],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("n_") if hasattr(tool, 'name') else str(tool).startswith("n_")),load_memory],
 )
 
 google_search_agent = LlmAgent(
@@ -77,7 +77,7 @@ google_search_agent = LlmAgent(
     model=get_model(),
     description=(instructions.GOOGLE_SEARCH_DESCRIPTION),
     instruction=(instructions.GOOGLE_SEARCH_INSTRUCTION),
-    tools=[google_search]
+    tools=[google_search, load_memory]
 )
 
 root_agent = LlmAgent(
