@@ -33,7 +33,7 @@ def get_model():
     return LiteLlm(model=model_name) if model_name.startswith("ollama") else model_name
 
 broker_agent = LlmAgent(
-    name="BrokerAgent",
+    name="ExchangeRateAgent",
     model=get_model(),
     description=(instructions.CASHANOVA_DESCRIPTION),
     instruction=(instructions.CASHANOVA_INSTRUCTION),
