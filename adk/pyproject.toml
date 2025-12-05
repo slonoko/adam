@@ -15,4 +15,5 @@ dependencies = [
     "fastapi==0.118.3",
     "google-adk[eval]==1.15.0",
     "litellm>=1.78.0",
+    "a2a-sdk[http-server]>=0.3.19",
 ]
