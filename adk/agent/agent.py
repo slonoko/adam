@@ -48,7 +48,7 @@ weather_agent = LlmAgent(
     model=get_model(),
     description=(instructions.DAILYDRIP_DESCRIPTION),
     instruction=(instructions.DAILYDRIP_INSTRUCTION),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("d_") if hasattr(tool, 'name') else str(tool).startswith("d_")),load_memory],
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("w_") if hasattr(tool, 'name') else str(tool).startswith("w_")),load_memory],
 )
 
 stock_agent = LlmAgent(
