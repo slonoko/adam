@@ -67,6 +67,15 @@ time_agent = LlmAgent(
     tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("t_") if hasattr(tool, 'name') else str(tool).startswith("t_")),load_memory],
 )
 
+code_agent = LlmAgent(
+    name="CodeAgent",
+    model=get_model(),
+    description=(instructions.CODEINTERPRETER_DESCRIPTION),
+    instruction=(instructions.CODEINTERPRETER_INSTRUCTION),
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("o_") if hasattr(tool, 'name') else str(tool).startswith("o_")),load_memory],
+)
+
+
 google_search_agent = create_google_search_agent(get_model())
 google_search_tool = GoogleSearchAgentTool(google_search_agent)
 
@@ -84,7 +93,7 @@ root_agent = Agent(
     description=(instructions.CLOCKNSTOCK_DESCRIPTION),
     instruction=(instructions.CLOCKNSTOCK_INSTRUCTION),
     planner=PlanReActPlanner(),
-    tools=[load_memory, AgentTool(agent=broker_agent), AgentTool(agent=weather_agent), AgentTool(agent=stock_agent), AgentTool(agent=time_agent), AgentTool(agent=news_agent)],
+    tools=[load_memory,AgentTool(agent=code_agent),AgentTool(agent=broker_agent), AgentTool(agent=weather_agent), AgentTool(agent=stock_agent), AgentTool(agent=time_agent), AgentTool(agent=news_agent)],
 )
 
 a2a_app = to_a2a(root_agent, port=8002)
