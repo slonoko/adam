@@ -1,0 +1,11 @@
+
+services:
+  web-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env  # This reads from host .env file without copying it into the image
+    restart: unless-stopped
