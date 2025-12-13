@@ -96,4 +96,4 @@ root_agent = Agent(
     tools=[load_memory,AgentTool(agent=code_agent),AgentTool(agent=broker_agent), AgentTool(agent=weather_agent), AgentTool(agent=stock_agent), AgentTool(agent=time_agent), AgentTool(agent=news_agent)],
 )
 
-a2a_app = to_a2a(root_agent)
+# a2a_app = to_a2a(root_agent)

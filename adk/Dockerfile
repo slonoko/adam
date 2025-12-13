@@ -1,8 +1,11 @@
 # Use official Python runtime as base image
 FROM python:3.14-slim
 
+# Create agents directory
+RUN mkdir -p /app/agents
+
 # Set working directory
-WORKDIR /app
+WORKDIR /app/agents
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -10,16 +13,10 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uv
-RUN pip install uv
-
-# Copy dependency files
-COPY pyproject.toml uv.lock ./
+COPY requirements.txt .
 COPY tradingadvisor/ ./tradingadvisor/
 
-# Install dependencies with uv
-RUN uv sync
-RUN . ./.venv/bin/activate
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Create non-root user for security
 RUN groupadd -r appuser && useradd -r -g appuser appuser
@@ -30,7 +27,7 @@ USER appuser
 EXPOSE 8000
 
 # Start the application
-# CMD [".venv/bin/adk", "web", "--host", "0.0.0.0", "--port", "8000", "/app"]
+CMD ["adk", "web", "--allow_origins", "*" ,"--host", "0.0.0.0", "--port", "8000", "/app/agents/"]
 
 # uvicorn tradingadvisor.agent:a2a_app --host localhost --port 8000
-CMD [".venv/bin/uvicorn", "tradingadvisor.agent:a2a_app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD ["uvicorn", "tradingadvisor.agent:a2a_app", "--host", "0.0.0.0", "--port", "8000"]

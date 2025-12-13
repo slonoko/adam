@@ -13,13 +13,15 @@ from tools.code_interpreter import mcp as code_mcp
 #from tools.corpora_search import mcp as corpus_tools
 import sys
 from dotenv import load_dotenv
-import uvicorn
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
+import uvicorn 
 
 load_dotenv()
 
 logging.basicConfig(
     stream=sys.stdout,
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
@@ -41,5 +43,13 @@ def setup():
 
 setup()
 
+# Define custom middleware
+custom_middleware = [
+    Middleware(CORSMiddleware, allow_origins=["*"],
+            allow_methods=["*"],
+            allow_headers=["*"],),
+]
+
 if __name__ == "__main__":
-    app.run(transport= "streamable-http", host="0.0.0.0")
+    http_app = app.http_app(middleware=custom_middleware)
+    app.run(http_app)
