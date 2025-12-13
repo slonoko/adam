@@ -1,6 +1,6 @@
 
 services:
-  web-server:
+  adk:
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,3 +9,11 @@ services:
     env_file:
       - .env  # This reads from host .env file without copying it into the image
     restart: unless-stopped
+    networks:
+      - adam-network
+
+networks:
+  adam-network:
+    external: true
+
+# docker network create adam-network

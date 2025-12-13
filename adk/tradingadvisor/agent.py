@@ -7,7 +7,7 @@ from google.adk.planners import PlanReActPlanner
 import os
 from google.adk.models.lite_llm import LiteLlm
 import warnings
-from agent import instructions
+from . import instructions
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
@@ -88,7 +88,7 @@ news_agent = LlmAgent(
 )
 
 root_agent = Agent(
-    name="MrKnowItAll",
+    name="tradingadvisor",
     model=get_model(),
     description=(instructions.CLOCKNSTOCK_DESCRIPTION),
     instruction=(instructions.CLOCKNSTOCK_INSTRUCTION),
@@ -96,4 +96,4 @@ root_agent = Agent(
     tools=[load_memory,AgentTool(agent=code_agent),AgentTool(agent=broker_agent), AgentTool(agent=weather_agent), AgentTool(agent=stock_agent), AgentTool(agent=time_agent), AgentTool(agent=news_agent)],
 )
 
-a2a_app = to_a2a(root_agent, port=8002)
+a2a_app = to_a2a(root_agent)
