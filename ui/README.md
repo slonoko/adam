@@ -1,147 +1,210 @@
 # Adam Dashboard
 
-An interactive dashboard for the Adam ADK API that creates dynamic widgets based on conversational queries.
+A professional, modern React dashboard for the Adam ADK API that creates dynamic widgets based on conversational queries.
 
-## Features
+## ✨ Features
 
-- **Dynamic Widget Grid**: Automatically arranges widgets in a responsive grid layout
-- **Chat Interface**: Natural language interaction with the ADK API
-- **Multiple Widget Types**: Automatically creates appropriate widgets for different response types:
+- **🎨 Modern Professional UI**: Built with React, Tailwind CSS, and Framer Motion for smooth animations
+- **💬 Smart Chat Interface**: Natural language interaction with the ADK API
+- **📊 Dynamic Widgets**: Automatically creates appropriate widgets for different response types:
   - Text panels for conversational responses
   - Tables for structured data
   - Images for visualizations
-  - Error widgets for failed requests
-- **Real-time Integration**: Connects to the ADK API at http://localhost:8000/
-- **Built with Streamlit**: Fast, Python-based UI framework
+  - Error widgets with user-friendly messages
+- **🔄 Session Management**: Automatic session creation and management with the ADK API
+- **📱 Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
+- **🌙 Glass Morphism UI**: Modern glass-card effects with backdrop blur
+- **⚡ Real-time Updates**: Connects to the ADK API with streaming support
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Python 3.10 or higher
-- `uv` package manager
+- Node.js 18+ or Bun
 - ADK API running at http://localhost:8000/
 
 ### Installation
 
-Install dependencies using `uv`:
+Install dependencies:
 
 ```bash
-uv pip install -e .
+npm install
+```
+
+Or with Bun:
+
+```bash
+bun install
+```
+
+### Configuration
+
+Copy `.env.example` to `.env` and configure:
+
+```env
+VITE_API_URL=http://localhost:8000
+VITE_APP_NAME=tradingadvisor
 ```
 
 ### Running the Dashboard
 
-**Option 1: Using the run script**
+Development mode:
+
 ```bash
-./run.sh
+npm run dev
 ```
 
-**Option 2: Manually**
+The dashboard will open at http://localhost:3000/
+
+Build for production:
+
 ```bash
-source .venv/bin/activate
-streamlit run app.py --server.port 8501
+npm run build
+npm run preview
 ```
 
-The dashboard will open at http://localhost:8501/
+## 📖 Usage
 
-**Note:** Make sure your ADK API is running at http://localhost:8000/ before using the dashboard.
+1. **Start your ADK API server** at http://localhost:8000
+2. **Launch the dashboard** using `npm run dev`
+3. **Type your question** in the chat input at the bottom
+4. **View results** as interactive widgets appear on the dashboard
+5. **Manage widgets**: Remove individual widgets or clear all using the sidebar
+6. **Create new sessions** to start fresh conversations
 
-## Usage
+## 🎨 UI Components
 
-1. Type your question in the chat box at the bottom
-2. Press Enter to send
-3. A new widget will appear on the dashboard with the results
-4. Remove individual widgets using the × button
-5. Clear all widgets using the sidebar button
+### Header
+- Branding and navigation
+- Status indicator
+- Sidebar toggle
 
-## Configuration
+### Dashboard Canvas
+- Grid layout for widgets
+- Smooth animations
+- Auto-layout responsive design
 
-The API endpoint can be configured by editing the `API_BASE_URL` variable in [app.py](app.py):
+### Chat Input
+- Message input with keyboard shortcuts
+- Quick example queries
+- Loading states and validation
 
-```python
-API_BASE_URL = "http://localhost:8000"
-```
+### Widgets
+- **Text Widget**: Markdown-formatted responses
+- **Table Widget**: Sortable data tables
+- **Image Widget**: Charts and visualizations
+- **Error Widget**: User-friendly error messages
 
-## API Integration
+### Sidebar
+- Session management controls
+- Statistics display
+- Session information
+- Clear and reset options
 
-The dashboard integrates with the **Google Agent Development Kit (ADK) FastAPI server** using the `/run_sse` endpoint.
+## 🔧 API Integration
 
-### API Configuration
-
-Edit these variables in [app.py](app.py):
-
-```python
-API_BASE_URL = "http://localhost:8000"  # Your ADK server URL
-APP_NAME = "tradingadvisor"              # Your agent app name
-```
+The dashboard integrates with the Google ADK FastAPI server:
 
 ### Session Management
 
-The dashboard automatically manages sessions:
-
-1. **Create Session**: First time a user interacts, a POST request is made to:
+1. **Create Session**: 
    ```
    POST /apps/{app_name}/users/{user_id}/sessions
    ```
-   This returns a session object with an `id` field.
+   Returns session ID
 
-2. **Use Session**: Subsequent messages use this session ID.
+2. **Send Message**:
+   ```
+   POST /run_sse
+   ```
+   Payload:
+   ```json
+   {
+     "app_name": "tradingadvisor",
+     "userId": "user_123",
+     "sessionId": "session_abc",
+     "newMessage": {
+       "role": "user",
+       "parts": [{"text": "Your question"}]
+     }
+   }
+   ```
 
-### Request Format
+## 🏗️ Project Structure
 
-The dashboard sends requests to `/run_sse` with the following structure:
-
-```json
-{
-  "app_name": "tradingadvisor",
-  "userId": "dashboard_user_123",
-  "sessionId": "1d9237cc-69b9-40e9-baad-510514191b4e",
-  "newMessage": {
-    "role": "user",
-    "parts": [{"text": "Your question here"}]
-  }
-}
+```
+ui/
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── ChatInput.jsx
+│   │   ├── Widget.jsx
+│   │   ├── Sidebar.jsx
+│   │   ├── EmptyState.jsx
+│   │   └── widgets/
+│   │       ├── TextWidget.jsx
+│   │       ├── TableWidget.jsx
+│   │       ├── ImageWidget.jsx
+│   │       └── ErrorWidget.jsx
+│   ├── services/
+│   │   └── api.js
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── public/
+├── index.html
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+└── postcss.config.js
 ```
 
-### Response Format
+## 🎨 Customization
 
-The ADK API streams responses using Server-Sent Events (SSE). The dashboard processes these events and extracts:
+### Styling
+- Edit `tailwind.config.js` for theme customization
+- Modify `src/index.css` for global styles
+- Component-specific styles use Tailwind utility classes
 
-- Text content from agent responses
-- Structured data for tables
-- Images and visualizations
-- Error messages
+### API Configuration
+- Update `.env` file for API endpoints
+- Modify `src/services/api.js` for custom API logic
 
-### Supported Response Types
+### Adding New Widget Types
+1. Create new component in `src/components/widgets/`
+2. Update `determineWidgetType` in `App.jsx`
+3. Add case to `renderContent` in `Widget.jsx`
 
-**Text responses:** Any text content returned by the agent
+## 🚀 Deployment
 
-**Table responses:** Responses containing a `data` array:
-```json
-{
-  "data": [
-    {"column1": "value1", "column2": "value2"},
-    {"column1": "value3", "column2": "value4"}
-  ]
-}
-```
-
-**Image responses:** Responses with image URLs:
-```json
-{
-  "image": "https://example.com/chart.png"
-}
-```
-
-### Starting Your ADK Server
-
-Make sure your ADK server is running:
+### Build for Production
 
 ```bash
-# From your ADK project directory
-adk api_server /path/to/adk/project
-
-# Or using uvicorn with a custom main.py
-uvicorn main:app --host 0.0.0.0 --port 8000
+npm run build
 ```
+
+Output will be in the `dist/` directory.
+
+### Serve Production Build
+
+```bash
+npm run preview
+```
+
+### Deploy to Vercel/Netlify
+
+The project is ready for deployment to static hosting services:
+
+1. Connect your repository
+2. Set build command: `npm run build`
+3. Set publish directory: `dist`
+4. Add environment variables
+
+## 📝 License
+
+MIT License - feel free to use this project for your own purposes.
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
