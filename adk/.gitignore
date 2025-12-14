@@ -10,3 +10,4 @@ wheels/
 .venv
 .env
 adam-sa.json
+.adk
