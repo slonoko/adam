@@ -1,5 +1,5 @@
 # Adam Dashboard
-
+--allow_origins "http://localhost:3000"
 A professional, modern React dashboard for the Adam ADK API that creates dynamic widgets based on conversational queries.
 
 ## ✨ Features
