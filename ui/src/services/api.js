@@ -20,51 +20,74 @@ export const createSession = async (userId) => {
 export const api = {
   sendMessage: async (message, userId, sessionId) => {
     try {
-      const response = await axios.post(
+      const response = await fetch(
         `${API_BASE_URL}/run_sse`,
         {
-          app_name: APP_NAME,
-          userId: userId,
-          sessionId: sessionId,
-          newMessage: {
-            role: 'user',
-            parts: [{ text: message }]
-          }
-        },
-        {
-          timeout: 60000,
-          responseType: 'text',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            app_name: APP_NAME,
+            userId: userId,
+            sessionId: sessionId,
+            newMessage: {
+              role: 'user',
+              parts: [{ text: message }]
+            }
+          })
         }
       )
 
-      // Parse SSE response
-      const lines = response.data.split('\n')
-      let fullResponse = { text: '', events: [] }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let finalAnswer = ''
       
-      for (const line of lines) {
-        if (line.startsWith('data: ')) {
-          try {
-            const eventData = JSON.parse(line.slice(6))
-            fullResponse.events.push(eventData)
-            
-            if (eventData.type === 'agent_response' || eventData.type === 'text') {
-              const content = eventData.data?.content || eventData.data || ''
-              fullResponse.text += content
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        
+        const chunk = decoder.decode(value, { stream: true })
+        const lines = chunk.split('\n')
+        
+        for (const line of lines) {
+          if (line.trim()) {
+            try {
+              const data = JSON.parse(line.replace('data: ', ''))
+              
+              // Check if this chunk contains the final answer
+              if (data.content?.parts) {
+                for (const part of data.content.parts) {
+                  if (part.text && !part.thought) {
+                    // Text without thought flag is the final answer
+                    if (!part.text.startsWith('/*REASONING*/') && 
+                        !part.text.startsWith('/*THINKING*/') &&
+                        !part.text.startsWith('/*PLANNING*/') &&
+                        !part.text.startsWith('/*ACTION*/')) {
+                      finalAnswer += part.text
+                    }
+                  }
+                }
+              }
+            } catch (e) {
+              // Skip invalid JSON
+              console.debug('Failed to parse JSON chunk:', e)
             }
-          } catch (e) {
-            // Skip invalid JSON
           }
         }
       }
 
-      return fullResponse.text 
-        ? { message: fullResponse.text }
+      return finalAnswer 
+        ? { message: finalAnswer.trim() }
         : { message: 'Response received' }
         
     } catch (error) {
       console.error('API Error:', error)
       throw new Error(
-        error.response?.data?.message || 
         error.message || 
         'Failed to send message'
       )

@@ -13,7 +13,7 @@ export default function TextWidget({ content }) {
   return (
     <div className="prose prose-sm max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 
                     prose-a:text-primary-600 prose-strong:text-gray-900 prose-code:text-primary-600 
-                    prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded">
+                    prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded text-black">
       <ReactMarkdown>{text}</ReactMarkdown>
     </div>
   )
