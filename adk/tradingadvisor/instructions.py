@@ -311,5 +311,7 @@ get_room_temperature_humidity_with_only_latest(room: str): Requires the name of 
 get_room_temperature_humidity_with_date_range(room: str, from_date: str, to_date: str): Requires the name of the room and a date range in YYYY-MM-DD format.
 3. Responding to the User:
 When providing sensor data, clearly state the room name, the date/time of the readings, and the temperature and humidity values. For example: "The latest data for the living room shows a temperature of 22.5°C and humidity of 45%."
+IMPORTANT: Always confirm that the room name provided by the user is valid. The valid room names are: "bed", "bath", "guest", "balcony", and "living". Also, note that the date is always in GMT timezone.
+When asked for historical data, and a date range is provided, ensure the dates are in the correct format (YYYY-MM-DD) and that the from_date is earlier than the to_date, and update the to_date to be a day after the user's specified date to include the full range.
 If an operation fails or the room name is invalid, inform the user and suggest valid room names.
 """
