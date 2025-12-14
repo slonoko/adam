@@ -15,6 +15,7 @@ from google.adk.tools.google_search_agent_tool import create_google_search_agent
 from google.adk.tools import load_web_page
 from google.adk.a2a.utils.agent_to_a2a import to_a2a
 from google.adk.tools.agent_tool import AgentTool
+from google.adk.code_executors.container_code_executor import ContainerCodeExecutor
 
 load_dotenv()
 logging.basicConfig(
@@ -41,6 +42,14 @@ broker_agent = LlmAgent(
     description=(instructions.CASHANOVA_DESCRIPTION),
     instruction=(instructions.CASHANOVA_INSTRUCTION),
     tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("c_") if hasattr(tool, 'name') else str(tool).startswith("c_")),load_memory],
+)
+
+home_sensor_agent = LlmAgent(
+    name="HomeSensorAgent",
+    model=get_model(),
+    description=(instructions.HOMESENSOR_DESCRIPTION),
+    instruction=(instructions.HOMESENSOR_INSTRUCTION),
+    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("h_") if hasattr(tool, 'name') else str(tool).startswith("h_")),load_memory],
 )
 
 weather_agent = LlmAgent(
@@ -70,9 +79,9 @@ time_agent = LlmAgent(
 code_agent = LlmAgent(
     name="CodeAgent",
     model=get_model(),
-    description=(instructions.CODEINTERPRETER_DESCRIPTION),
-    instruction=(instructions.CODEINTERPRETER_INSTRUCTION),
-    tools=[MCPToolset(connection_params=StreamableHTTPConnectionParams(url=f"{os.getenv('mcp_server_url')}/mcp"), tool_filter=lambda tool,readonly_context: tool.name.startswith("o_") if hasattr(tool, 'name') else str(tool).startswith("o_")),load_memory],
+    code_executor=ContainerCodeExecutor(image="python:3.13-alpine"),
+    instruction=instructions.DRAWER_INSTRUCTION,
+    description=instructions.DRAWER_DESCRIPTION,
 )
 
 
@@ -93,7 +102,7 @@ root_agent = Agent(
     description=(instructions.CLOCKNSTOCK_DESCRIPTION),
     instruction=(instructions.CLOCKNSTOCK_INSTRUCTION),
     planner=PlanReActPlanner(),
-    tools=[load_memory,AgentTool(agent=code_agent),AgentTool(agent=broker_agent), AgentTool(agent=weather_agent), AgentTool(agent=stock_agent), AgentTool(agent=time_agent), AgentTool(agent=news_agent)],
+    tools=[load_memory,AgentTool(agent=code_agent),AgentTool(agent=broker_agent), AgentTool(agent=weather_agent), AgentTool(agent=stock_agent), AgentTool(agent=time_agent), AgentTool(agent=news_agent), AgentTool(agent=home_sensor_agent)],
 )
 
 # a2a_app = to_a2a(root_agent)
