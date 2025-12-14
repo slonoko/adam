@@ -11,17 +11,14 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy dependency files
-COPY pyproject.toml uv.lock ./
+COPY requirements.txt ./
 
-# Install uv for fast package management
-RUN pip install uv
-
-# Install dependencies using uv
-RUN uv pip install --system -r pyproject.toml
+# Install dependencies using requrirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application files
 COPY server.py ./
-COPY adam-sa.json ./
+#COPY adam-sa.json ./
 COPY tools/ ./tools/
 
 # Create a non-root user for security
@@ -37,3 +34,4 @@ ENV PYTHONUNBUFFERED=1
 
 # Command to run the uvicorn server
 CMD ["fastmcp", "run", "server.py:app", "--transport", "streamable-http", "--host", "0.0.0.0", "--port", "8000"]
+# fastmcp run server.py:app --transport streamable-http --host 0.0.0.0 --port 8001

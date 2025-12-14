@@ -3,7 +3,7 @@ import datetime
 from zoneinfo import ZoneInfo
 from fastmcp import FastMCP
 
-mcp = FastMCP("stockwhisperer")
+mcp = FastMCP("weather")
 
 
 @mcp.tool()

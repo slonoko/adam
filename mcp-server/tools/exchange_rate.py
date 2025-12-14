@@ -78,7 +78,7 @@ def get_supported_currencies() -> list:
         return []
 
 @mcp.tool
-def bulk_convert(amount: float, from_currency: str, target_currencies: list) -> dict:
+def bulk_convert(amount: float, from_currency: str, target_currencies = []) -> dict:
         """
         Convert amount to multiple target currencies at once.
         Args:

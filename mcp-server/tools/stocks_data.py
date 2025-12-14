@@ -66,9 +66,9 @@ def get_intraday_data(
     return _make_request(params)
 
 @mcp.tool()
-def get_daily_data(symbol: str, output_size: str = "compact"):
+def get_all_daily_historical_data(symbol: str, output_size: str = "compact"):
     """
-    Fetch daily stock data.
+    Returns raw (as-traded) daily time series (date, daily open, daily high, daily low, daily close, daily volume) of the global equity specified, covering 20+ years of historical data. The OHLCV data is sometimes called "candles" in finance literature.
     :param symbol: Stock symbol (e.g., 'AAPL').
     :param output_size: 'compact' or 'full'.
     :return: JSON response.
@@ -79,6 +79,27 @@ def get_daily_data(symbol: str, output_size: str = "compact"):
         "outputsize": output_size,
     }
     return _make_request(params)
+
+@mcp.tool()
+def get_specific_date_historical_data(symbol: str, date: str):
+    """
+    Returns raw (as-traded) daily time series (date, daily open, daily high, daily low, daily close, daily volume) of the global equity specified, for a specific date.
+    :param symbol: Stock symbol (e.g., 'AAPL').
+    :param date: Date in YYYY-MM-DD format. example: 2025-10-31
+    :return: JSON response.
+    """
+    params = {
+        "function": "TIME_SERIES_DAILY",
+        "symbol": symbol,
+        "outputsize": "full",
+    }
+    data = _make_request(params)
+
+    time_series = data.get("Time Series (Daily)", {})
+    historical_data = time_series.get(date, {})
+
+    return {date: historical_data} if historical_data else {date: {}}
+
 
 @mcp.tool()
 def get_weekly_data(symbol: str):

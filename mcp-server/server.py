@@ -7,18 +7,20 @@ from tools.exchange_rate import mcp as cashanova_mcp
 from tools.datetime_info import mcp as datetime_mcp
 from tools.stocks_data import mcp as stocks_data_mcp
 from tools.weather import mcp as weather_mcp
-from tools.plotter import mcp as plotter_mcp
 from tools.news import mcp  as news_mcp
-from tools.corpora_search import mcp as corpus_tools
+from tools.home_sensors import mcp as home_sensors_mcp
+#from tools.corpora_search import mcp as corpus_tools
 import sys
 from dotenv import load_dotenv
-import uvicorn
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
+import uvicorn 
 
 load_dotenv()
 
 logging.basicConfig(
     stream=sys.stdout,
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
@@ -32,12 +34,20 @@ def setup():
     app.mount(cashanova_mcp, prefix="c")
     app.mount(datetime_mcp, prefix="t")
     app.mount(stocks_data_mcp, prefix="s")
-    app.mount(weather_mcp, prefix="d")
-    app.mount(plotter_mcp, prefix="p")
+    app.mount(weather_mcp, prefix="w")
     app.mount(news_mcp, prefix="n")
-    app.mount(corpus_tools, prefix="cs")
+    app.mount(home_sensors_mcp, prefix="h")
+    # app.mount(corpus_tools, prefix="cs")
 
 setup()
 
+# Define custom middleware
+custom_middleware = [
+    Middleware(CORSMiddleware, allow_origins=["*"],
+            allow_methods=["*"],
+            allow_headers=["*"],),
+]
+
 if __name__ == "__main__":
-    app.run(transport= "streamable-http", host="0.0.0.0")
+    http_app = app.http_app(middleware=custom_middleware)
+    app.run(http_app)

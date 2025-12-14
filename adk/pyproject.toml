@@ -1,0 +1,19 @@
+[project]
+name = "adk"
+version = "0.1.0"
+description = "Adam assistant, a personal assistant for your daily tasks"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "python-dotenv>=1.1.0",
+    "google-genai>=1.17.0",
+    "google-adk>=1.15.0",
+    "litellm>=1.78.0",
+    "a2a-sdk>=0.3.19",
+    "uvicorn>=0.38.0",
+    "docker>=7.1.0",
+    "matplotlib>=3.10.8",
+]
+
+[tool.agent-starter-pack.settings]
+deployment_targets = ["agent_engine", "cloud_run"]
