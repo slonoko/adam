@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "adk"
+		},
+		{
+			"path": "ui"
 		}
 	],
 	"settings": {}

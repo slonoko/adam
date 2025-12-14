@@ -1,0 +1,17 @@
+[project]
+name = "adam-dashboard"
+version = "0.1.0"
+description = "Interactive dashboard for Adam ADK API"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "streamlit>=1.29.0",
+    "requests>=2.31.0",
+    "pandas>=2.1.0",
+    "plotly>=5.18.0",
+    "pillow>=10.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
