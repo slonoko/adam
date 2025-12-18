@@ -8,9 +8,7 @@ A Model Context Protocol (MCP) server providing financial, weather, news, and da
 
 Install the `uv` package manager:
 
-```bash
-pip install uv
-```
+Follow the instructions to install the `uv` package manager: https://docs.astral.sh/uv/getting-started/installation/
 
 ### 2. Install Dependencies
 

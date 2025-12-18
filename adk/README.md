@@ -6,11 +6,7 @@ AI agents for trading, finance, weather, news, and data visualization built with
 
 ### 1. Install uv
 
-Install the `uv` package manager:
-
-```bash
-pip install uv
-```
+Follow the instructions to install the `uv` package manager: https://docs.astral.sh/uv/getting-started/installation/
 
 ### 2. Install Dependencies
 
