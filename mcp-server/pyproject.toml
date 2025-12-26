@@ -10,6 +10,7 @@ dependencies = [
     "fastmcp>=2.11.2",
     "google-cloud-aiplatform>=1.107.0",
     "kaleido>=1.0.0",
+    "langchain-community>=0.4.1",
     "matplotlib>=3.10.3",
     "plotly>=6.2.0",
     "requests>=2.32.3",

@@ -4,6 +4,7 @@ from fastmcp import FastMCP
 from dotenv import load_dotenv
 from typing import Optional
 import requests
+from langchain_community.utilities import GoogleSerperAPIWrapper
 
 load_dotenv()
 
@@ -28,6 +29,23 @@ def _make_request(params):
     return response.json()
 
 mcp = FastMCP("news")
+
+@mcp.tool
+def google_search(query: str) -> str:
+    """Search the web for information related to a query.
+
+    Args:
+        query: The search query
+
+    Returns:
+        Search results as text
+    """
+    try:
+        search = GoogleSerperAPIWrapper()
+        result = search.run(query)
+        return result
+    except Exception as e:
+        return "I couldn't perform the search due to a technical issue."
 
 @mcp.tool
 def get_news(query: str, from_date: Optional[str] = None, sort_by: str = "popularity"):
