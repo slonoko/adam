@@ -3,7 +3,7 @@ from google.adk.agents.remote_a2a_agent import RemoteA2aAgent
 from google.adk.runners import Runner
 from google.genai.types import Content, Part
 import uuid
-from google.adk.sessions.sqlite_session_service import SqliteSessionService
+from google.adk.sessions.sqlite_session_service import SqliteSessionService, Session
 from google.adk.memory import InMemoryMemoryService
 import asyncio
 import logging
@@ -17,7 +17,7 @@ load_dotenv()
 
 logging.basicConfig(
     stream=sys.stdout,
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
@@ -41,19 +41,21 @@ root_agent = RemoteA2aAgent(
     ),
 )
 
+APP_NAME = "TradingAdvisor"
+USER_ID = "elie"
+
 async def run():
     runner = Runner(agent=root_agent,
-                    app_name="TradingAdvisor",
+                    app_name=APP_NAME,
                     session_service=session_service,
                     memory_service=memory_service)
-    session_id = str(uuid.uuid4())
-    await runner.session_service.create_session(app_name="TradingAdvisor", user_id="elie", session_id=session_id)
     user_input = Content(parts=[Part(text="What is the current value of nvidia in euros?")])
-    async for event in runner.run_async(user_id="elie", session_id=session_id, new_message=user_input):
+    session:Session = await runner.session_service.create_session(app_name=APP_NAME, user_id=USER_ID, session_id=str(uuid.uuid4()))
+    async for event in runner.run_async(user_id=USER_ID, session_id=session.id, new_message=user_input):
         if event.is_final_response() and event.content and event.content.parts:
             final_response_text = event.content.parts[0].text
-    print(f"Agent 1 Response: {final_response_text}")
-    completed_session = await runner.session_service.get_session(app_name="TradingAdvisor", user_id="elie", session_id=session_id)
+    logger.info(f"Agent response: {final_response_text}")
+    completed_session = await runner.session_service.get_session(app_name=APP_NAME, user_id=USER_ID, session_id=session.id)
     await memory_service.add_session_to_memory(completed_session)
 
-# asyncio.run(run())
+asyncio.run(run())
