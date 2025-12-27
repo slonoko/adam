@@ -4,7 +4,7 @@ from google.adk.runners import Runner
 from google.genai.types import Content, Part
 import uuid
 from google.adk.sessions.sqlite_session_service import SqliteSessionService, Session
-from utils.vertex_ai_rag_memory_service import FixedVertexAiRagMemoryService
+from agent.utils.vertex_ai_rag_memory_service import FixedVertexAiRagMemoryService
 import asyncio
 import logging
 from dotenv import load_dotenv
@@ -12,7 +12,8 @@ import sys
 from google.adk.tools.load_memory_tool import load_memory  # Tool to query memory
 import os
 import warnings
-
+import vertexai
+from google.adk.tools.preload_memory_tool import PreloadMemoryTool
 load_dotenv()
 
 logging.basicConfig(
@@ -29,9 +30,11 @@ logger = logging.getLogger(__name__)
 # Suppress Pydantic validation for arbitrary types used internally
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+vertexai.init()
+
 # Services must be shared across runners to share state and memory
 session_service = SqliteSessionService("session.db")
-memory_service = FixedVertexAiRagMemoryService(f"projects/{os.getenv("GOOGLE_CLOUD_PROJECT")}/locations/{os.getenv("GOOGLE_CLOUD_LOCATION")}/ragCorpora/2305843009213693952")
+memory_service = FixedVertexAiRagMemoryService(f"projects/{os.getenv("GOOGLE_CLOUD_PROJECT")}/locations/{os.getenv("GOOGLE_CLOUD_REGION")}/ragCorpora/2305843009213693952")
 
 async def auto_save_session_to_memory_callback(callback_context):
     await callback_context._invocation_context.memory_service.add_session_to_memory(
@@ -43,6 +46,7 @@ root_agent = RemoteA2aAgent(
     agent_card=(
         f"http://localhost:8000/{AGENT_CARD_WELL_KNOWN_PATH}"
     ),
+    after_agent_callback=auto_save_session_to_memory_callback,
 )
 
 APP_NAME = "TradingAdvisor"
@@ -63,4 +67,4 @@ async def run():
     completed_session = await runner.session_service.get_session(app_name=APP_NAME, user_id=USER_ID, session_id=session.id)
     await memory_service.add_session_to_memory(completed_session)
 
-asyncio.run(run())
+#asyncio.run(run())
