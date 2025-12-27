@@ -11,11 +11,13 @@ load_dotenv()
 
 logging.basicConfig(
     stream=sys.stdout,
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+# Get a logger for the module where the client is used
+logger = logging.getLogger(__name__)
 
 # Create an MCP server
 mcp = FastMCP("homesensor", streamable_http_path="/homesensor")

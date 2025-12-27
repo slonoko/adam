@@ -25,6 +25,9 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+# Get a logger for the module where the client is used
+logger = logging.getLogger(__name__)
+
 # Define main server
 app = FastMCP(name="AdamMCP")
 
