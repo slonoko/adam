@@ -1,0 +1,1 @@
+from . import vertex_ai_rag_memory_service

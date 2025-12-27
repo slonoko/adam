@@ -4,7 +4,7 @@ from google.adk.runners import Runner
 from google.genai.types import Content, Part
 import uuid
 from google.adk.sessions.sqlite_session_service import SqliteSessionService, Session
-from google.adk.memory import InMemoryMemoryService
+from utils.vertex_ai_rag_memory_service import FixedVertexAiRagMemoryService
 import asyncio
 import logging
 from dotenv import load_dotenv
@@ -31,8 +31,12 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # Services must be shared across runners to share state and memory
 session_service = SqliteSessionService("session.db")
-memory_service = InMemoryMemoryService() # Use in-memory for demo
+memory_service = FixedVertexAiRagMemoryService(f"projects/{os.getenv("GOOGLE_CLOUD_PROJECT")}/locations/{os.getenv("GOOGLE_CLOUD_LOCATION")}/ragCorpora/2305843009213693952")
 
+async def auto_save_session_to_memory_callback(callback_context):
+    await callback_context._invocation_context.memory_service.add_session_to_memory(
+        callback_context._invocation_context.session)
+    
 root_agent = RemoteA2aAgent(
     name='trading_advisor',
     description='A helpful assistant for user questions.',
@@ -49,7 +53,8 @@ async def run():
                     app_name=APP_NAME,
                     session_service=session_service,
                     memory_service=memory_service)
-    user_input = Content(parts=[Part(text="What is the current value of nvidia in euros?")])
+    q = input("Q: ")
+    user_input = Content(parts=[Part(text=q)])
     session:Session = await runner.session_service.create_session(app_name=APP_NAME, user_id=USER_ID, session_id=str(uuid.uuid4()))
     async for event in runner.run_async(user_id=USER_ID, session_id=session.id, new_message=user_input):
         if event.is_final_response() and event.content and event.content.parts:
